@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | SKVM Alumni Association</title>
+  <meta name="description" content="Get in touch with the SriKrishna Vidya Mandir Alumni Association. We'd love to hear from you.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__brand">
+      <img src="assets/logo.png" alt="SKVM Alumni Logo" class="navbar__logo">
+      <div class="navbar__title">
+        <span class="navbar__title-main">Srikrishna Vidya Mandir</span>
+        <span class="navbar__title-sub">Alumni Association</span>
+      </div>
+    </div>
+    <input type="checkbox" id="nav-toggle" class="navbar__toggle" hidden>
+    <label for="nav-toggle" class="navbar__hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </label>
+    <div class="navbar__links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="donate.html" class="navbar__cta">Donate</a>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <p class="page-hero__eyebrow">Get in Touch</p>
+    <h1 class="page-hero__title">Contact Us</h1>
+    <p class="page-hero__subtitle">We'd love to hear from alumni, well-wishers, and prospective supporters</p>
+  </section>
+
+  <!-- Contact Form + Address -->
+  <section class="section section--parchment">
+    <div class="two-col">
+
+      <!-- Form -->
+      <div>
+        <p class="section__eyebrow">Send a Message</p>
+        <h2 class="section__title">Reach Out</h2>
+        <form class="form" action="#" method="POST">
+          <div class="form__group">
+            <label class="form__label" for="name">Your Name</label>
+            <input class="form__input" type="text" id="name" name="name" placeholder="e.g. Ravi Kumar" required>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="email">Email Address</label>
+            <input class="form__input" type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="batch">Batch Year (optional)</label>
+            <input class="form__input" type="text" id="batch" name="batch" placeholder="e.g. 1998">
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="message">Your Message</label>
+            <textarea class="form__textarea" id="message" name="message" placeholder="Tell us about yourself or your enquiry..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--navy" style="align-self:flex-start;">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Address -->
+      <div>
+        <p class="section__eyebrow">Find Us</p>
+        <h2 class="section__title">School Address</h2>
+        <div class="address-block" style="margin-bottom:32px;">
+          <div class="address-block__item">
+            <span class="address-block__icon">🏫</span>
+            <span>Sri T.V.S. Rao SriKrishna Vidya Mandir</span>
+          </div>
+          <div class="address-block__item">
+            <span class="address-block__icon">📍</span>
+            <span>Dwaraka Nagar, Visakhapatnam<br>Andhra Pradesh 530016, India</span>
+          </div>
+          <div class="address-block__item">
+            <span class="address-block__icon">📧</span>
+            <a href="mailto:alumni@skvmalumni.org" style="color:var(--blue-dark);">alumni@skvmalumni.org</a>
+          </div>
+          <div class="address-block__item">
+            <span class="address-block__icon">📞</span>
+            <span>+91 891 XXX XXXX</span>
+          </div>
+        </div>
+
+        <!-- Map placeholder -->
+        <div style="background:var(--white); border:2px solid var(--gold); border-radius:4px; height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+          <span style="font-size:32px;">🗺️</span>
+          <span style="font-family:var(--nav-font); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--brown-mid);">Map coming soon</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <div class="footer__brand-name">SKVM Alumni Association</div>
+      <div class="footer__address">
+        SriKrishna Vidya Mandir, Dwaraka Nagar<br>
+        Visakhapatnam, Andhra Pradesh 530016, India
+      </div>
+    </div>
+    <div>
+      <div class="footer__links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="donate.html">Donate</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__copy">© 2025 SriKrishna Vidya Mandir Alumni Association. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
