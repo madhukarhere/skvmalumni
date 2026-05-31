@@ -5,67 +5,132 @@
       <stop offset="55%" stop-color="#1976d2"/>
       <stop offset="100%" stop-color="#0d47a1"/>
     </radialGradient>
-    <!-- Clip to circle -->
-    <clipPath id="circle-clip">
-      <circle cx="100" cy="100" r="84"/>
-    </clipPath>
+    <radialGradient id="krishnaGrad" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#0a2a6e"/>
+    </radialGradient>
   </defs>
 
   <!-- Outer gold ring -->
   <circle cx="100" cy="100" r="99" fill="#c8a84b"/>
   <!-- White spacer -->
-  <circle cx="100" cy="100" r="94" fill="#fff"/>
+  <circle cx="100" cy="100" r="94" fill="#e8f0fe"/>
   <!-- Decorative dashed ring -->
   <circle cx="100" cy="100" r="91" fill="none" stroke="#c8a84b" stroke-width="1.5" stroke-dasharray="4 3.5"/>
+  <!-- Decorative inner ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#c8a84b" stroke-width="0.5" stroke-dasharray="2 4"/>
   <!-- Main blue fill -->
-  <circle cx="100" cy="100" r="86" fill="url(#bg)"/>
-
-  <!-- Inner gold accent ring -->
-  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(200,168,75,0.6)" stroke-width="1"/>
+  <circle cx="100" cy="100" r="85" fill="url(#bg)"/>
+  <!-- Subtle inner glow ring -->
+  <circle cx="100" cy="100" r="84" fill="none" stroke="rgba(200,168,75,0.4)" stroke-width="1"/>
 
   <!-- Curved top text: SRIKRISHNA VIDYA MANDIR -->
-  <path id="arc-top" d="M 24,100 A 76,76 0 0,1 176,100" fill="none"/>
-  <text font-family="'Trebuchet MS',Arial,sans-serif" font-size="11" font-weight="700"
-        fill="#c8a84b" letter-spacing="1.5">
-    <textPath href="#arc-top" startOffset="4%">SRIKRISHNA VIDYA MANDIR</textPath>
+  <path id="arc-top" d="M 22,97 A 78,78 0 0,1 178,97" fill="none"/>
+  <text font-family="'Trebuchet MS',Arial,sans-serif" font-size="10.5" font-weight="700"
+        fill="#f0d060" letter-spacing="1.2">
+    <textPath href="#arc-top" startOffset="3%">SRIKRISHNA VIDYA MANDIR</textPath>
   </text>
 
   <!-- Curved bottom text: ALUMNI -->
-  <path id="arc-bot" d="M 40,138 A 70,70 0 0,0 160,138" fill="none"/>
-  <text font-family="'Trebuchet MS',Arial,sans-serif" font-size="12" font-weight="800"
-        fill="#c8a84b" letter-spacing="5">
-    <textPath href="#arc-bot" startOffset="16%">ALUMNI</textPath>
+  <path id="arc-bot" d="M 38,142 A 72,72 0 0,0 162,142" fill="none"/>
+  <text font-family="'Trebuchet MS',Arial,sans-serif" font-size="12.5" font-weight="800"
+        fill="#f0d060" letter-spacing="6">
+    <textPath href="#arc-bot" startOffset="14%">ALUMNI</textPath>
   </text>
 
-  <!-- Horizontal separator lines flanking bottom text -->
-  <line x1="38" y1="152" x2="58" y2="152" stroke="#c8a84b" stroke-width="1.2"/>
-  <line x1="142" y1="152" x2="162" y2="152" stroke="#c8a84b" stroke-width="1.2"/>
+  <!-- Gold separator dots -->
+  <circle cx="47" cy="155" r="2" fill="#c8a84b"/>
+  <circle cx="153" cy="155" r="2" fill="#c8a84b"/>
 
-  <!-- Center diya (oil lamp) flame -->
-  <ellipse cx="100" cy="70" rx="5" ry="8" fill="#f9a825"/>
-  <ellipse cx="100" cy="72" rx="3" ry="5" fill="#fff9c4"/>
-  <!-- Lamp bowl -->
-  <path d="M88,82 Q100,76 112,82 Q110,92 100,94 Q90,92 88,82 Z" fill="#c8a84b"/>
-  <!-- Lamp handle/stand -->
-  <rect x="98" y="93" width="4" height="8" rx="1" fill="#c8a84b"/>
-  <rect x="93" y="100" width="14" height="3" rx="1.5" fill="#c8a84b"/>
+  <!-- ── LORD KRISHNA SILHOUETTE ── -->
+  <!-- Peacock feather crown -->
+  <ellipse cx="100" cy="38" rx="3" ry="8" fill="#2e7d32" transform="rotate(-15,100,38)"/>
+  <ellipse cx="100" cy="38" rx="3" ry="8" fill="#388e3c" transform="rotate(0,100,38)"/>
+  <ellipse cx="100" cy="38" rx="3" ry="8" fill="#2e7d32" transform="rotate(15,100,38)"/>
+  <!-- Feather eyes -->
+  <ellipse cx="97" cy="33" rx="2" ry="3" fill="#1565c0" opacity="0.7"/>
+  <ellipse cx="100" cy="31" rx="2" ry="3" fill="#1565c0" opacity="0.7"/>
+  <ellipse cx="103" cy="33" rx="2" ry="3" fill="#1565c0" opacity="0.7"/>
+  <!-- Feather gold tips -->
+  <circle cx="97" cy="31" r="1.2" fill="#c8a84b" opacity="0.9"/>
+  <circle cx="100" cy="29" r="1.2" fill="#c8a84b" opacity="0.9"/>
+  <circle cx="103" cy="31" r="1.2" fill="#c8a84b" opacity="0.9"/>
+  <!-- Crown band -->
+  <rect x="91" y="43" width="18" height="4" rx="2" fill="#c8a84b"/>
 
-  <!-- Open book below lamp -->
-  <g transform="translate(100,118)">
-    <!-- Left page -->
-    <path d="M-22,-8 C-20,-13 -12,-14 -2,-13 L-2,11 C-12,10 -20,9 -22,5 Z"
-          fill="rgba(255,255,255,0.92)" stroke="#c8a84b" stroke-width="0.8"/>
-    <!-- Right page -->
-    <path d="M22,-8 C20,-13 12,-14 2,-13 L2,11 C12,10 20,9 22,5 Z"
-          fill="rgba(255,255,255,0.92)" stroke="#c8a84b" stroke-width="0.8"/>
-    <!-- Spine -->
-    <line x1="0" y1="-13" x2="0" y2="11" stroke="#c8a84b" stroke-width="2"/>
-    <!-- Text lines on pages -->
-    <line x1="-18" y1="-5" x2="-4" y2="-6" stroke="rgba(13,71,161,0.5)" stroke-width="1"/>
-    <line x1="-18" y1="0"  x2="-4" y2="-1"  stroke="rgba(13,71,161,0.5)" stroke-width="1"/>
-    <line x1="-18" y1="5"  x2="-4" y2="4"   stroke="rgba(13,71,161,0.5)" stroke-width="1"/>
-    <line x1="4"  y1="-6" x2="18" y2="-5" stroke="rgba(13,71,161,0.5)" stroke-width="1"/>
-    <line x1="4"  y1="-1" x2="18" y2="0"  stroke="rgba(13,71,161,0.5)" stroke-width="1"/>
-    <line x1="4"  y1="4"  x2="18" y2="5"  stroke="rgba(13,71,161,0.5)" stroke-width="1"/>
-  </g>
+  <!-- Head (blue-tinted for Krishna) -->
+  <ellipse cx="100" cy="54" rx="10" ry="11" fill="#1a5276"/>
+  <!-- Face highlight -->
+  <ellipse cx="100" cy="52" rx="7" ry="8" fill="#1f618d"/>
+  <!-- Eyes -->
+  <ellipse cx="96.5" cy="52" rx="2.2" ry="1.5" fill="#fff"/>
+  <ellipse cx="103.5" cy="52" rx="2.2" ry="1.5" fill="#fff"/>
+  <circle cx="97" cy="52" r="1.2" fill="#0d1117"/>
+  <circle cx="104" cy="52" r="1.2" fill="#0d1117"/>
+  <!-- Smile -->
+  <path d="M97,57 Q100,59.5 103,57" fill="none" stroke="#c8a84b" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Nose dot (tilak) -->
+  <circle cx="100" cy="55" r="0.8" fill="#c8a84b"/>
+
+  <!-- Neck -->
+  <rect x="96" y="63" width="8" height="6" rx="2" fill="#1a5276"/>
+  <!-- Necklace -->
+  <path d="M93,67 Q100,71 107,67" fill="none" stroke="#c8a84b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="100" cy="70" r="1.5" fill="#c8a84b"/>
+
+  <!-- Body / dhoti — Krishna in tribhanga (three-bend) pose -->
+  <!-- Torso (leaning slightly) -->
+  <path d="M90,69 Q88,73 87,82 Q88,90 93,93 Q100,95 107,93 Q112,90 113,82 Q112,73 110,69 Q105,71 100,71 Q95,71 90,69 Z"
+        fill="#1a5276"/>
+  <!-- Chest ornament -->
+  <ellipse cx="100" cy="79" rx="4" ry="5" fill="#c8a84b" opacity="0.3"/>
+  <circle cx="100" cy="79" r="2" fill="#c8a84b" opacity="0.6"/>
+
+  <!-- Left arm raised (flute playing) -->
+  <path d="M90,72 Q82,68 76,62 Q74,59 75,57 Q77,55 79,57 Q84,63 91,68"
+        fill="none" stroke="#1a5276" stroke-width="7" stroke-linecap="round"/>
+  <!-- Left hand -->
+  <ellipse cx="75" cy="57" rx="4" ry="3" fill="#1a5276" transform="rotate(-20,75,57)"/>
+
+  <!-- Right arm down (flute playing) -->
+  <path d="M110,72 Q118,70 123,66 Q126,63 125,61 Q123,59 121,61 Q117,65 109,69"
+        fill="none" stroke="#1a5276" stroke-width="7" stroke-linecap="round"/>
+  <!-- Right hand -->
+  <ellipse cx="124" cy="61" rx="4" ry="3" fill="#1a5276" transform="rotate(15,124,61)"/>
+
+  <!-- Flute (bansuri) across both hands -->
+  <line x1="76" y1="58" x2="124" y2="62" stroke="#c8a84b" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Flute holes -->
+  <circle cx="88" cy="59.5" r="1" fill="#0d47a1"/>
+  <circle cx="96" cy="60.3" r="1" fill="#0d47a1"/>
+  <circle cx="104" cy="61" r="1" fill="#0d47a1"/>
+  <circle cx="112" cy="61.8" r="1" fill="#0d47a1"/>
+
+  <!-- Waist / dhoti band -->
+  <path d="M89,93 Q100,96 111,93 L112,98 Q100,101 88,98 Z" fill="#c8a84b"/>
+
+  <!-- Legs in tribhanga stance (one knee slightly bent) -->
+  <!-- Left leg -->
+  <path d="M93,98 Q91,108 90,118 Q91,124 93,126" stroke="#1a5276" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- Right leg (bent at knee) -->
+  <path d="M107,98 Q109,108 110,116 Q109,122 107,124" stroke="#1a5276" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+  <!-- Dhoti cloth between legs -->
+  <path d="M88,98 Q100,106 112,98 L110,120 Q100,122 90,120 Z" fill="#1565c0" opacity="0.7"/>
+  <!-- Dhoti pattern lines -->
+  <line x1="100" y1="100" x2="100" y2="120" stroke="#c8a84b" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Feet -->
+  <ellipse cx="91" cy="127" rx="5" ry="2.5" fill="#1a5276" transform="rotate(10,91,127)"/>
+  <ellipse cx="108" cy="126" rx="5" ry="2.5" fill="#1a5276" transform="rotate(-10,108,126)"/>
+  <!-- Anklets -->
+  <path d="M87,126 Q91,129 95,126" fill="none" stroke="#c8a84b" stroke-width="1.2"/>
+  <path d="M104,125 Q108,128 112,125" fill="none" stroke="#c8a84b" stroke-width="1.2"/>
+
+  <!-- Ground / lotus base -->
+  <ellipse cx="100" cy="130" rx="18" ry="4" fill="rgba(200,168,75,0.15)"/>
+  <!-- Small lotus petals -->
+  <ellipse cx="88" cy="130" rx="5" ry="2" fill="#c8a84b" opacity="0.3" transform="rotate(-20,88,130)"/>
+  <ellipse cx="100" cy="132" rx="5" ry="2" fill="#c8a84b" opacity="0.3"/>
+  <ellipse cx="112" cy="130" rx="5" ry="2" fill="#c8a84b" opacity="0.3" transform="rotate(20,112,130)"/>
 </svg>
