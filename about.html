@@ -24,9 +24,32 @@
     </label>
     <div class="navbar__links">
       <a href="index.html">Home</a>
-      <a href="about.html" class="active">About Us</a>
+
+      <!-- Community dropdown -->
+      <div class="navbar__dropdown">
+        <input type="checkbox" id="dd-community" class="navbar__dd-toggle" hidden>
+        <label for="dd-community" class="navbar__dd-label">Community <span class="navbar__caret">▾</span></label>
+        <div class="navbar__dd-menu">
+          <a href="alumni-network.html">Alumni Network</a>
+          <a href="events.html">Events</a>
+          <a href="mentorship.html">Mentorship</a>
+        </div>
+      </div>
+
+      <!-- Our School dropdown -->
+      <div class="navbar__dropdown">
+        <input type="checkbox" id="dd-school" class="navbar__dd-toggle" hidden>
+        <label for="dd-school" class="navbar__dd-label navbar__dd-label--active">Our School <span class="navbar__caret">▾</span></label>
+        <div class="navbar__dd-menu">
+          <a href="about.html">About Us</a>
+          <a href="impact.html">Impact</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+      </div>
+
+      <a href="resources.html">Resources</a>
       <a href="contact.html">Contact</a>
-      <a href="donate.html" class="navbar__cta">Donate</a>
+      <a href="give-back.html" class="navbar__cta">Give Back</a>
     </div>
   </nav>
 
@@ -125,7 +148,7 @@
       To connect alumni across generations, support the school's growth, and create opportunities for graduates
       to give back to the community that shaped them.
     </p>
-    <a href="donate.html" class="btn btn--gold">Support the School</a>
+    <a href="give-back.html" class="btn btn--gold">Support the School</a>
   </section>
 
   <!-- Footer -->
@@ -141,7 +164,13 @@
       <div class="footer__links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="donate.html">Donate</a>
+        <a href="alumni-network.html">Alumni Network</a>
+        <a href="events.html">Events</a>
+        <a href="mentorship.html">Mentorship</a>
+        <a href="impact.html">Impact</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="resources.html">Resources</a>
+        <a href="give-back.html">Give Back</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="footer__copy">© 2025 SriKrishna Vidya Mandir Alumni Association. All rights reserved.</div>
