@@ -147,16 +147,27 @@ ul { list-style: none; }
 .navbar__dd-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 16px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  background: transparent;
+  padding-top: 16px;
+  z-index: 200;
+  min-width: 160px;
+}
+
+.navbar__dd-menu::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: var(--blue-dark);
   border: 1px solid rgba(200,168,75,0.25);
   border-radius: 6px;
-  min-width: 160px;
-  padding: 8px 0;
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  z-index: 200;
+  z-index: -1;
 }
 
 .navbar__dd-menu a {
