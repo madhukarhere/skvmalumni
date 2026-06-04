@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donate | SKVM Alumni Association</title>
+  <title>Give Back | SKVM Alumni Association</title>
   <meta name="description" content="Support SriKrishna Vidya Mandir through the alumni association. Fund scholarships, infrastructure, and student welfare.">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -24,9 +24,32 @@
     </label>
     <div class="navbar__links">
       <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
+
+      <!-- Community dropdown -->
+      <div class="navbar__dropdown">
+        <input type="checkbox" id="dd-community" class="navbar__dd-toggle" hidden>
+        <label for="dd-community" class="navbar__dd-label">Community <span class="navbar__caret">▾</span></label>
+        <div class="navbar__dd-menu">
+          <a href="alumni-network.html">Alumni Network</a>
+          <a href="events.html">Events</a>
+          <a href="mentorship.html">Mentorship</a>
+        </div>
+      </div>
+
+      <!-- Our School dropdown -->
+      <div class="navbar__dropdown">
+        <input type="checkbox" id="dd-school" class="navbar__dd-toggle" hidden>
+        <label for="dd-school" class="navbar__dd-label">Our School <span class="navbar__caret">▾</span></label>
+        <div class="navbar__dd-menu">
+          <a href="about.html">About Us</a>
+          <a href="impact.html">Impact</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+      </div>
+
+      <a href="resources.html">Resources</a>
       <a href="contact.html">Contact</a>
-      <a href="donate.html" class="navbar__cta active">Donate</a>
+      <a href="give-back.html" class="navbar__cta active">Give Back</a>
     </div>
   </nav>
 
@@ -114,7 +137,13 @@
       <div class="footer__links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="donate.html">Donate</a>
+        <a href="alumni-network.html">Alumni Network</a>
+        <a href="events.html">Events</a>
+        <a href="mentorship.html">Mentorship</a>
+        <a href="impact.html">Impact</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="resources.html">Resources</a>
+        <a href="give-back.html">Give Back</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="footer__copy">© 2025 SriKrishna Vidya Mandir Alumni Association. All rights reserved.</div>
