@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Management Committee | SKVM Alumni Association</title>
+  <meta name="description" content="Management committee and founder members of the SriKrishna Vidya Mandir Alumni Association, 2025–2028.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__brand">
+      <img src="assets/logo.png" alt="SKVM Alumni Logo" class="navbar__logo">
+      <div class="navbar__title">
+        <span class="navbar__title-main">Srikrishna Vidya Mandir</span>
+        <span class="navbar__title-sub">Alumni Association</span>
+      </div>
+    </div>
+    <input type="checkbox" id="nav-toggle" class="navbar__toggle" hidden>
+    <label for="nav-toggle" class="navbar__hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </label>
+    <div class="navbar__links">
+      <a href="index.html">Home</a>
+
+      <!-- Community dropdown -->
+      <div class="navbar__dropdown">
+        <input type="checkbox" id="dd-community" class="navbar__dd-toggle" hidden>
+        <label for="dd-community" class="navbar__dd-label">Community <span class="navbar__caret">▾</span></label>
+        <div class="navbar__dd-menu">
+          <a href="alumni-network.html">Alumni Network</a>
+          <a href="events.html">Events</a>
+        </div>
+      </div>
+
+      <!-- Our School dropdown -->
+      <div class="navbar__dropdown">
+        <input type="checkbox" id="dd-school" class="navbar__dd-toggle" hidden>
+        <label for="dd-school" class="navbar__dd-label">Our School <span class="navbar__caret">▾</span></label>
+        <div class="navbar__dd-menu">
+          <a href="about.html">About Us</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+      </div>
+
+      <a href="committee.html" class="active">Committee</a>
+      <a href="contact.html">Contact</a>
+      <a href="give-back.html" class="navbar__cta">Give Back</a>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <p class="page-hero__eyebrow">SKVM Alumni Association</p>
+    <h1 class="page-hero__title">Management Committee</h1>
+    <p class="page-hero__subtitle">Founder Members · 2025 – 2028</p>
+  </section>
+
+  <!-- Registration Certificate side link -->
+  <button type="button" class="cert-tab" id="cert-open" aria-haspopup="dialog" aria-controls="cert-modal">
+    <span class="cert-tab__icon" aria-hidden="true">📜</span>
+    <span class="cert-tab__label">Society Registration Certificate</span>
+  </button>
+
+  <!-- Certificate modal -->
+  <div class="cert-modal" id="cert-modal" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title" hidden>
+    <div class="cert-modal__backdrop" data-close></div>
+    <div class="cert-modal__panel" role="document">
+      <div class="cert-modal__header">
+        <div>
+          <p class="cert-modal__eyebrow">Government of Andhra Pradesh</p>
+          <h2 class="cert-modal__title" id="cert-modal-title">Certificate of Registration</h2>
+          <p class="cert-modal__meta">Registrar of Societies, Visakhapatnam · No. 203 / 2026 · 09-Apr-2026</p>
+        </div>
+        <button type="button" class="cert-modal__close" data-close aria-label="Close">×</button>
+      </div>
+      <div class="cert-modal__body">
+        <img src="assets/registration-certificate.jpg"
+             alt="Certificate of Registration — Sri Krishna Vidya Mandir Alumni Association, Registrar of Societies, Visakhapatnam"
+             onerror="this.style.display='none'; document.getElementById('cert-fallback').hidden = false;">
+        <div class="cert-modal__fallback" id="cert-fallback" hidden>
+          <p><strong>Certificate image not yet uploaded.</strong></p>
+          <p>Save the certificate as <code>assets/registration-certificate.jpg</code> in the site folder.</p>
+        </div>
+      </div>
+      <div class="cert-modal__footer">
+        <a href="assets/registration-certificate.jpg" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Committee Cards -->
+  <section class="section section--white" style="padding:60px 32px;">
+    <div style="max-width:1080px; margin:0 auto;">
+
+      <p class="section__eyebrow" style="text-align:center;" data-anim>Executive Committee</p>
+      <h2 class="section__title" style="text-align:center; max-width:none; margin-bottom:40px;" data-anim>Office Bearers</h2>
+
+      <div class="member-grid" data-anim-stagger="150">
+
+        <!-- 1 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/pv-phani-raju.jpg" alt="PV Phani Raju" onerror="this.style.display='none'">
+            <span class="member-card__initials">PP</span>
+          </div>
+          <div class="member-card__role">President</div>
+          <h3 class="member-card__name">PV Phani Raju</h3>
+          <div class="member-card__meta">Class of 1989</div>
+          <div class="member-card__contact">
+            <span>+91-98XXX-XXXXX</span>
+            <a href="mailto:rvpindiprolu@gmail.com">rvpindiprolu@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/y-chandrasekhar.jpg" alt="Y Chandrasekhar" onerror="this.style.display='none'">
+            <span class="member-card__initials">YC</span>
+          </div>
+          <div class="member-card__role">Vice-President</div>
+          <h3 class="member-card__name">Y Chandrasekhar</h3>
+          <div class="member-card__meta">Class of 1998</div>
+          <div class="member-card__contact">
+            <span>+91-99XXX-XXXXX</span>
+            <a href="mailto:chandra.y@live.com">chandra.y@live.com</a>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/mudunuru-madhukar.jpg" alt="Mudunuru Radha Surya Madhukar" onerror="this.style.display='none'">
+            <span class="member-card__initials">MM</span>
+          </div>
+          <div class="member-card__role">General Secretary</div>
+          <h3 class="member-card__name">Mudunuru Radha Surya Madhukar</h3>
+          <div class="member-card__meta">Class of 1998</div>
+          <div class="member-card__contact">
+            <span>+91-94XXX-XXXXX</span>
+            <a href="mailto:madhukarhere@gmail.com">madhukarhere@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/somayajula-phani-kumar.jpg" alt="Somayajula Phani Kumar" onerror="this.style.display='none'">
+            <span class="member-card__initials">SP</span>
+          </div>
+          <div class="member-card__role">Treasurer</div>
+          <h3 class="member-card__name">Somayajula Phani Kumar</h3>
+          <div class="member-card__meta">Class of 1999</div>
+          <div class="member-card__contact">
+            <span>+91-88XXX-XXXXX</span>
+            <a href="mailto:phani1953@gmail.com">phani1953@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/envsl-chandrika.jpg" alt="ENVSL Chandrika" onerror="this.style.display='none'">
+            <span class="member-card__initials">EC</span>
+          </div>
+          <div class="member-card__role">Joint Secretary</div>
+          <h3 class="member-card__name">ENVSL Chandrika</h3>
+          <div class="member-card__meta">Class of 1990</div>
+          <div class="member-card__contact">
+            <span>+91-93XXX-XXXXX</span>
+            <a href="mailto:chandrikaeranki74@gmail.com">chandrikaeranki74@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/nitya-ramanan.jpg" alt="Nitya Ramanan" onerror="this.style.display='none'">
+            <span class="member-card__initials">NR</span>
+          </div>
+          <div class="member-card__role">EC Member</div>
+          <h3 class="member-card__name">Nitya Ramanan</h3>
+          <div class="member-card__meta">Class of 1998</div>
+          <div class="member-card__contact">
+            <span>+91-98XXX-XXXXX</span>
+            <a href="mailto:nitya.ramanan1314@gmail.com">nitya.ramanan1314@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/tn-chaitanya.jpg" alt="TN Chaitanya" onerror="this.style.display='none'">
+            <span class="member-card__initials">TC</span>
+          </div>
+          <div class="member-card__role">EC Member</div>
+          <h3 class="member-card__name">TN Chaitanya</h3>
+          <div class="member-card__meta">Class of 2000</div>
+          <div class="member-card__contact">
+            <span>+91-98XXX-XXXXX</span>
+            <a href="mailto:chaitanyatalada@gmail.com">chaitanyatalada@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/lanka-keerthi.jpg" alt="Lanka Keerthi" onerror="this.style.display='none'">
+            <span class="member-card__initials">LK</span>
+          </div>
+          <div class="member-card__role">EC Member</div>
+          <h3 class="member-card__name">Lanka Keerthi</h3>
+          <div class="member-card__meta">Class of 2002</div>
+          <div class="member-card__contact">
+            <span>+91-94XXX-XXXXX</span>
+            <a href="mailto:keerthi628.lanka@gmail.com">keerthi628.lanka@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/pappu-lalitha.jpg" alt="Pappu Lalitha" onerror="this.style.display='none'">
+            <span class="member-card__initials">PL</span>
+          </div>
+          <div class="member-card__role">EC Member</div>
+          <h3 class="member-card__name">Pappu Lalitha</h3>
+          <div class="member-card__meta">Class of 1988</div>
+          <div class="member-card__contact">
+            <span>+91-92XXX-XXXXX</span>
+            <a href="mailto:ls9pappu@gmail.com">ls9pappu@gmail.com</a>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="section__eyebrow" style="text-align:center; margin-top:64px;" data-anim>Corpus Fund</p>
+      <h2 class="section__title" style="text-align:center; max-width:none; margin-bottom:40px;" data-anim>Trustees</h2>
+
+      <div class="member-grid" data-anim-stagger="150">
+
+        <!-- 10 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/ch-chiranjeevi.jpg" alt="Mr Ch Chiranjeevi" onerror="this.style.display='none'">
+            <span class="member-card__initials">CC</span>
+          </div>
+          <div class="member-card__role">Ex-Officio · Primary Trustee</div>
+          <h3 class="member-card__name">Mr Ch Chiranjeevi</h3>
+          <div class="member-card__meta">School Principal</div>
+          <div class="member-card__contact">
+            <span>+91-99XXX-XXXXX</span>
+            <a href="mailto:skvmandir@gmail.com">skvmandir@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/sastry-somayajula.jpg" alt="Sastry LN Somayajula" onerror="this.style.display='none'">
+            <span class="member-card__initials">SS</span>
+          </div>
+          <div class="member-card__role">Corpus Fund Trustee</div>
+          <h3 class="member-card__name">Sastry LN Somayajula</h3>
+          <div class="member-card__meta">Class of 1990</div>
+          <div class="member-card__contact">
+            <span>+91-98XXX-XXXXX</span>
+            <a href="mailto:lnsasom@gmail.com">lnsasom@gmail.com</a>
+          </div>
+        </article>
+
+        <!-- 12 -->
+        <article class="member-card">
+          <div class="member-card__avatar">
+            <img src="assets/committee/nedunuri-aravinda.jpg" alt="Nedunuri Aravinda" onerror="this.style.display='none'">
+            <span class="member-card__initials">NA</span>
+          </div>
+          <div class="member-card__role">Corpus Fund Trustee</div>
+          <h3 class="member-card__name">Nedunuri Aravinda</h3>
+          <div class="member-card__meta">Class of 1990</div>
+          <div class="member-card__contact">
+            <span>+91-97XXX-XXXXX</span>
+            <a href="mailto:nedunuriaravinda@gmail.com">nedunuriaravinda@gmail.com</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .member-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
+    @media (max-width: 900px) { .member-grid { grid-template-columns:repeat(2, 1fr); } }
+    @media (max-width: 560px) { .member-grid { grid-template-columns:1fr; } }
+
+    .member-card { background:var(--white); border:1px solid rgba(0,0,0,0.08); border-radius:10px; padding:28px 20px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.04); transition:transform 0.15s ease, box-shadow 0.15s ease; }
+    .member-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+
+    .member-card__avatar { position:relative; width:96px; height:96px; margin:0 auto 16px; border-radius:50%; background:linear-gradient(160deg, var(--blue-mid) 0%, var(--blue-dark) 100%); border:3px solid var(--gold); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+    .member-card__avatar img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .member-card__initials { font-family:var(--serif, Georgia, serif); font-size:32px; font-weight:600; color:var(--gold); letter-spacing:0.04em; }
+
+    .member-card__role { display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--blue-dark); background:rgba(200,168,75,0.15); padding:4px 10px; border-radius:999px; margin-bottom:12px; }
+    .member-card__name { color:var(--blue-dark); margin:0 0 6px; font-size:17px; line-height:1.3; }
+    .member-card__meta { color:var(--brown-mid); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:14px; }
+    .member-card__contact { display:flex; flex-direction:column; gap:4px; padding-top:12px; border-top:1px solid rgba(0,0,0,0.06); font-size:13px; }
+    .member-card__contact a { color:var(--blue-dark); text-decoration:none; word-break:break-word; }
+    .member-card__contact a:hover { text-decoration:underline; color:var(--blue-mid); }
+
+    /* Slower, more graceful initial reveal for committee cards */
+    .member-card[data-anim] {
+      opacity: 0;
+      transform: translateY(28px) scale(0.94);
+      transition: opacity 1100ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                  transform 1100ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: var(--anim-delay, 0ms);
+    }
+    .member-card[data-anim].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    /* Avatar rises with a slight extra beat once the card is in */
+    .member-card[data-anim] .member-card__avatar {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: calc(var(--anim-delay, 0ms) + 350ms);
+    }
+    .member-card[data-anim].is-visible .member-card__avatar {
+      opacity: 1;
+      transform: scale(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .member-card[data-anim],
+      .member-card[data-anim] .member-card__avatar { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* Right-side certificate tab */
+    .cert-tab { position:fixed; top:50%; right:0; transform:translateY(-50%) rotate(0deg); transform-origin:right center; background:var(--blue-dark); color:var(--gold); border:2px solid var(--gold); border-right:none; border-radius:10px 0 0 10px; padding:14px 12px; display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; font-family:inherit; box-shadow:-4px 4px 16px rgba(0,0,0,0.15); z-index:900; transition:padding-right 0.15s ease, background 0.15s ease; }
+    .cert-tab:hover { background:var(--blue-mid); padding-right:16px; }
+    .cert-tab__icon { font-size:22px; line-height:1; }
+    .cert-tab__label { writing-mode:vertical-rl; transform:rotate(180deg); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:600; }
+    @media (max-width: 640px) {
+      .cert-tab { top:auto; bottom:16px; right:16px; transform:none; border-radius:999px; border-right:2px solid var(--gold); flex-direction:row; padding:10px 16px; }
+      .cert-tab__label { writing-mode:horizontal-tb; transform:none; }
+    }
+
+    /* Modal */
+    .cert-modal { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .cert-modal[hidden] { display:none; }
+    .cert-modal__backdrop { position:absolute; inset:0; background:rgba(10,15,40,0.72); backdrop-filter:blur(4px); }
+    .cert-modal__panel { position:relative; background:var(--white); border-radius:12px; max-width:920px; width:100%; max-height:92vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.4); overflow:hidden; border:2px solid var(--gold); }
+    .cert-modal__header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:20px 24px; background:var(--blue-dark); color:var(--gold); }
+    .cert-modal__eyebrow { margin:0 0 4px; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+    .cert-modal__title { margin:0 0 6px; color:var(--gold); font-size:20px; }
+    .cert-modal__meta { margin:0; color:rgba(255,255,255,0.75); font-size:12px; }
+    .cert-modal__close { background:transparent; color:var(--gold); border:1px solid var(--gold); border-radius:50%; width:36px; height:36px; font-size:22px; line-height:1; cursor:pointer; flex-shrink:0; transition:background 0.15s ease, color 0.15s ease; }
+    .cert-modal__close:hover { background:var(--gold); color:var(--blue-dark); }
+    .cert-modal__body { flex:1; overflow:auto; background:#f4f1ea; display:flex; align-items:center; justify-content:center; padding:16px; }
+    .cert-modal__body img { max-width:100%; height:auto; display:block; box-shadow:0 4px 20px rgba(0,0,0,0.12); border-radius:4px; }
+    .cert-modal__fallback { color:var(--brown); text-align:center; padding:40px 20px; font-size:14px; line-height:1.7; }
+    .cert-modal__fallback code { background:var(--parchment, #f5efe0); padding:2px 6px; border-radius:4px; font-size:13px; }
+    .cert-modal__footer { padding:12px 24px; text-align:right; border-top:1px solid rgba(0,0,0,0.08); font-size:13px; }
+    .cert-modal__footer a { color:var(--blue-dark); text-decoration:none; }
+    .cert-modal__footer a:hover { text-decoration:underline; }
+  </style>
+
+  <script>
+    (function () {
+      var modal = document.getElementById('cert-modal');
+      var openBtn = document.getElementById('cert-open');
+      function open()  { modal.hidden = false; document.body.style.overflow = 'hidden'; }
+      function close() { modal.hidden = true;  document.body.style.overflow = ''; }
+      openBtn.addEventListener('click', open);
+      modal.addEventListener('click', function (e) {
+        if (e.target.matches('[data-close]')) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden) close();
+      });
+    })();
+  </script>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <div class="footer__brand-name">SKVM Alumni Association</div>
+      <div class="footer__address">
+        SriKrishna Vidya Mandir, Dwaraka Nagar<br>
+        Visakhapatnam, Andhra Pradesh 530016, India
+      </div>
+    </div>
+    <div>
+      <div class="footer__links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="alumni-network.html">Alumni Network</a>
+        <a href="events.html">Events</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="committee.html">Committee</a>
+        <a href="give-back.html">Give Back</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__copy">© 2025 SriKrishna Vidya Mandir Alumni Association. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="assets/animate.js" defer></script>
+</body>
+</html>

@@ -706,3 +706,59 @@ ul { list-style: none; }
     gap: 20px;
   }
 }
+
+/* ---------- Motion / Reveal ---------- */
+[data-anim] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--anim-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-anim].is-visible {
+  opacity: 1;
+  transform: none;
+}
+[data-anim="fade"] { transform: none; }
+[data-anim="scale"] { transform: translateY(12px) scale(0.98); }
+[data-anim="scale"].is-visible { transform: none; }
+
+/* Hero: sequenced load-in (no observer needed, above the fold) */
+.hero > * {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: heroIn 700ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+.hero > *:nth-child(1) { animation-delay: 80ms; }
+.hero > *:nth-child(2) { animation-delay: 180ms; }
+.hero > *:nth-child(3) { animation-delay: 280ms; }
+.hero > *:nth-child(4) { animation-delay: 380ms; }
+.hero > *:nth-child(5) { animation-delay: 480ms; }
+.hero > *:nth-child(6) { animation-delay: 580ms; }
+.hero > *:nth-child(7) { animation-delay: 680ms; }
+@keyframes heroIn {
+  to { opacity: 1; transform: none; }
+}
+
+/* Buttons: gentle hover lift */
+.btn { transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+/* Cards: subtle hover on the shared .card class */
+.card { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+
+/* Stat numbers: crisp scale on reveal */
+.stats-bar__number { transition: transform 500ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+/* Committee avatar: soft ring pulse on hover */
+.member-card__avatar { transition: transform 250ms ease, box-shadow 250ms ease; }
+.member-card:hover .member-card__avatar { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(200,168,75,0.18); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .hero > * { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .btn:hover, .card:hover, .member-card:hover .member-card__avatar { transform: none !important; box-shadow: none !important; }
+}
