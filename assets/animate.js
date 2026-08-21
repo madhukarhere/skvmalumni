@@ -1,6 +1,17 @@
 // Motion helpers — reveal on scroll, staggered children, stat counters.
 // Respects prefers-reduced-motion.
 (function () {
+  // Home-page navbar: add .navbar--scrolled once the user scrolls past the top.
+  var navbar = document.querySelector('.navbar');
+  if (navbar) {
+    var onScroll = function () {
+      if (window.scrollY > 8) navbar.classList.add('navbar--scrolled');
+      else navbar.classList.remove('navbar--scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) return;
 

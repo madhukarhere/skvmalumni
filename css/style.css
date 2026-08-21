@@ -39,6 +39,13 @@ ul { list-style: none; }
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: none;
+  transition: box-shadow 0.25s ease;
+}
+
+/* Drop the shadow at the top so the navbar sits flush with the hero,
+   and bring it back on scroll. */
+.navbar--scrolled {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
@@ -46,6 +53,8 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .navbar__logo {
@@ -219,10 +228,7 @@ ul { list-style: none; }
 
 /* ── Page Hero ── */
 .hero {
-  background:
-    linear-gradient(180deg, rgba(23, 40, 131, 0.72) 0%, rgba(23, 40, 131, 0.32) 45%, rgba(23, 40, 131, 0.55) 100%),
-    linear-gradient(rgba(23, 40, 131, 0.38), rgba(23, 40, 131, 0.38)),
-    url('../assets/school-building.jpg') center/cover no-repeat #172883;
+  background: var(--blue-dark);
   padding: 72px 32px 104px;
   text-align: center;
   position: relative;
@@ -316,7 +322,7 @@ ul { list-style: none; }
 
 /* Page sub-hero (inner pages) */
 .page-hero {
-  background: linear-gradient(90deg, var(--blue-mid) 0%, var(--blue-dark) 100%);
+  background: var(--blue-dark);
   padding: 48px 32px;
   text-align: center;
   position: relative;
