@@ -4,11 +4,121 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alumni Network | SKVM Alumni Association</title>
-  <meta name="description" content="Connect with SKVM alumni worldwide. Coming soon.">
+  <meta name="description" content="Where SKVM alumni live and work today — an interactive world map of the SriKrishna Vidya Mandir alumni network.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <style>
+    .map-wrap { max-width: 1200px; margin: 40px auto; padding: 0 24px; }
+    #alumni-map {
+      width: 100%; height: 560px;
+      border-radius: 12px;
+      border: 1px solid var(--blue-dark);
+      box-shadow: 0 4px 18px rgba(23, 40, 131, 0.15);
+      background: #fbf6ea; /* parchment fallback while tiles load */
+    }
+
+    /* Tint the CartoDB tiles toward the site's blue/parchment palette. */
+    #alumni-map .leaflet-tile-pane {
+      filter: hue-rotate(200deg) saturate(0.55) brightness(1.02);
+    }
+
+    /* Leaflet chrome themed to the site */
+    #alumni-map .leaflet-bar a,
+    #alumni-map .leaflet-bar a:hover {
+      background: var(--blue-dark);
+      color: var(--gold);
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+    #alumni-map .leaflet-bar a:hover { background: #1f358f; }
+    #alumni-map .leaflet-control-attribution {
+      background: rgba(255,255,255,0.85);
+      color: #333;
+    }
+    #alumni-map .leaflet-control-attribution a { color: var(--blue-dark); }
+
+    #alumni-map .leaflet-popup-content-wrapper {
+      background: #fff;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(23,40,131,0.18);
+    }
+    #alumni-map .leaflet-popup-tip { background: var(--gold); }
+    #alumni-map .leaflet-tooltip {
+      background: var(--blue-dark);
+      color: var(--gold);
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    #alumni-map .leaflet-tooltip-top:before { border-top-color: var(--blue-dark); }
+    .map-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px; margin: 28px 0;
+    }
+    .map-stat {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px; padding: 18px 20px;
+      text-align: center;
+    }
+    .map-stat__value {
+      font-family: var(--nav-font); font-weight: 800;
+      font-size: 32px; color: var(--blue-dark); line-height: 1;
+    }
+    .map-stat__label {
+      font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase; color: #666; margin-top: 8px;
+    }
+    .map-legend {
+      background: #fff; padding: 10px 12px;
+      border-radius: 8px; font-size: 12px; line-height: 1.6;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .map-legend .dot {
+      display: inline-block; border-radius: 50%;
+      background: rgba(200,168,75,0.7);
+      border: 2px solid #172883;
+      margin-right: 4px; vertical-align: middle;
+    }
+    .map-legend h4 {
+      margin: 0 0 6px; font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--blue-dark);
+    }
+    .map-popup__title { font-weight: 700; color: var(--blue-dark); font-size: 14px; margin: 0 0 4px; }
+    .map-popup__count { font-size: 12px; color: #666; margin-bottom: 8px; }
+    .map-popup__list {
+      margin: 0; padding: 0; list-style: none;
+      max-height: 160px; overflow-y: auto; font-size: 13px;
+    }
+    .map-popup__list li { padding: 3px 0; border-bottom: 1px dashed rgba(0,0,0,0.08); }
+    .map-popup__list li:last-child { border-bottom: none; }
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px; margin-top: 28px;
+    }
+    .country-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px; padding: 16px 18px;
+      display: flex; align-items: baseline;
+      justify-content: space-between; gap: 12px;
+    }
+    .country-card__name { font-weight: 600; color: var(--blue-dark); }
+    .country-card__count {
+      font-family: var(--nav-font); font-weight: 800;
+      font-size: 20px; color: var(--gold);
+    }
+    .map-intro {
+      max-width: 720px; margin: 0 auto 8px; text-align: center;
+      color: var(--text-muted); font-size: 15px;
+    }
+  </style>
 </head>
 <body>
 
@@ -35,7 +145,7 @@
         <div class="navbar__dd-menu">
           <a href="alumni-network.html">Alumni Network</a>
           <a href="events.html">Events</a>
-                <a href="gallery.html">Gallery</a>
+          <a href="gallery.html">Gallery</a>
         </div>
       </div>
 
@@ -54,14 +164,17 @@
     <p class="page-hero__subtitle">Reconnect with fellow graduates from around the world</p>
   </section>
 
-  <!-- Coming Soon -->
-  <section class="section section--white" style="text-align:center; padding:80px 32px;">
-    <div style="font-size:48px; margin-bottom:24px;">🚧</div>
-    <h2 style="color:var(--blue-dark); margin-bottom:16px;">Coming Soon</h2>
-    <p style="color:var(--text-muted); max-width:480px; margin:0 auto 32px; font-size:16px;">
-      We're working on something special here. Check back soon — exciting things are coming for the SKVM alumni community.
+  <!-- Alumni Map -->
+  <section class="map-wrap">
+    <p class="map-intro">
+      Every dot on the map is a fellow SKVM-ian. Click a city to see who's there &mdash;
+      and if you don't see yourself yet,
+      <a href="contact.html">register through the alumni directory</a>.
     </p>
-    <a href="index.html" class="btn btn--gold">Back to Home</a>
+
+    <div class="map-stats" id="mapStats"></div>
+    <div id="alumni-map"></div>
+    <div class="country-grid" id="countryGrid"></div>
   </section>
 
   <!-- Footer -->
@@ -84,10 +197,13 @@
         <a href="committee.html">Committee</a>
         <a href="contact.html">Contact</a>
       </div>
-      <div class="footer__copy">© 2025 SriKrishna Vidya Mandir Alumni Association. All rights reserved.</div>
+      <div class="footer__copy">&copy; 2025 SriKrishna Vidya Mandir Alumni Association. All rights reserved.</div>
     </div>
   </footer>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="assets/animate.js" defer></script>
+  <script src="assets/alumni-map.js" defer></script>
 </body>
 </html>
