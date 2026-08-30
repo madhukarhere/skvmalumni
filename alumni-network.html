@@ -207,5 +207,28 @@
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="assets/animate.js" defer></script>
   <script src="assets/alumni-map.js" defer></script>
+
+  <!-- Alumni Network launch-day welcome popup (shows once per visitor).
+       Toggle from assets/site-config.js (or ?popup=1 in URL for a one-off preview). -->
+  <script src="assets/site-config.js"></script>
+  <script>
+    if (window.SKVM_CONFIG && window.SKVM_CONFIG.popupEnabled) {
+      fetch('assets/launch-popup.html')
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var wrap = document.createElement('div');
+          wrap.innerHTML = html;
+          var scripts = wrap.querySelectorAll('script');
+          scripts.forEach(function (s) { s.parentNode.removeChild(s); });
+          document.body.appendChild(wrap);
+          scripts.forEach(function (s) {
+            var n = document.createElement('script');
+            n.text = s.textContent;
+            document.body.appendChild(n);
+          });
+        })
+        .catch(function () {});
+    }
+  </script>
 </body>
 </html>

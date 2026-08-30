@@ -320,5 +320,29 @@
   </footer>
 
   <script src="assets/animate.js" defer></script>
+
+  <!-- Alumni Network welcome popup (home page: shows on every visit).
+       Toggle from assets/site-config.js (or ?popup=1 in URL for a one-off preview). -->
+  <script src="assets/site-config.js"></script>
+  <script>
+    if (window.SKVM_CONFIG && window.SKVM_CONFIG.popupEnabled) {
+      window.SKVM_FORCE_SHOW = true;
+      fetch('assets/launch-popup.html')
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var wrap = document.createElement('div');
+          wrap.innerHTML = html;
+          var scripts = wrap.querySelectorAll('script');
+          scripts.forEach(function (s) { s.parentNode.removeChild(s); });
+          document.body.appendChild(wrap);
+          scripts.forEach(function (s) {
+            var n = document.createElement('script');
+            n.text = s.textContent;
+            document.body.appendChild(n);
+          });
+        })
+        .catch(function () {});
+    }
+  </script>
 </body>
 </html>

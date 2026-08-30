@@ -1,0 +1,958 @@
+<!-- Launch-day welcome popup. Include this markup + CSS + JS on alumni-network.html
+     (or any page) and it will show once per visitor on the launch date. -->
+
+<style>
+  .skvm-launch-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: radial-gradient(ellipse at center, rgba(20,10,40,.72), rgba(10,5,20,.92));
+    display: none; align-items: flex-start; justify-content: center;
+    padding: 48px 24px 24px; animation: skvm-fade .4s ease;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    overflow-y: auto;
+  }
+  .skvm-launch-overlay.show { display: flex; }
+
+  .skvm-launch-card {
+    position: relative;
+    max-width: 780px; width: 100%;
+    margin: 0 auto;
+    background: radial-gradient(circle at top, #fff8e7 0%, #fdf1d0 55%, #f6e2a8 100%);
+    border: 3px solid #b8860b;
+    border-radius: 18px;
+    padding: 80px 32px 24px;
+    text-align: center;
+    color: #2a1a05;
+    box-shadow:
+      0 0 0 6px rgba(184,134,11,.15),
+      0 30px 80px rgba(0,0,0,.55);
+    animation: skvm-pop .6s cubic-bezier(.2,.9,.3,1.2);
+  }
+  /* Janmashtami motif — bright, bottom-right, behind text */
+  .skvm-motif {
+    position: absolute; right: 0; bottom: 0;
+    width: 340px; height: auto; pointer-events: none;
+    opacity: .35;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  @media (max-width: 560px) {
+    .skvm-motif { width: 200px; opacity: .3; }
+  }
+
+  /* ----- Curtain raiser ----- */
+  .skvm-curtain {
+    position: absolute; inset: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 20;
+  }
+  .skvm-curtain-panel {
+    position: absolute; top: 0; bottom: 0;
+    width: 52%;
+    background:
+      repeating-linear-gradient(90deg,
+        #6d0e14 0px, #8a1a24 14px, #b32234 28px, #8a1a24 42px, #6d0e14 56px),
+      linear-gradient(180deg, #4a0a10 0%, #6d0e14 40%, #8a1a24 100%);
+    background-blend-mode: multiply, normal;
+    box-shadow:
+      inset 0 -30px 60px rgba(0,0,0,.35),
+      inset 0 6px 20px rgba(255,215,0,.25);
+    transform-origin: top center;
+  }
+  .skvm-curtain-left  { left: 0;  border-right: 3px solid #4a0a10; }
+  .skvm-curtain-right { right: 0; border-left:  3px solid #4a0a10; }
+
+  /* Gold valance (top border with scalloped bunting look) */
+  .skvm-curtain-valance {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 40px;
+    background:
+      linear-gradient(180deg, #b8860b 0%, #d4a840 40%, #b8860b 100%),
+      radial-gradient(circle at 20px 40px, #4a0a10 12px, transparent 13px) repeat-x;
+    background-size: auto, 40px 40px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.35);
+    z-index: 2;
+  }
+  .skvm-curtain-valance::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 100%;
+    height: 22px;
+    background:
+      radial-gradient(circle at 20px -10px, #b8860b 20px, transparent 21px) repeat-x;
+    background-size: 40px 22px;
+  }
+
+  /* Golden tassel ties that appear once curtains open */
+  .skvm-curtain-tie {
+    position: absolute; top: 42%;
+    width: 22px; height: 40px;
+    background: radial-gradient(circle, #ffd700 0%, #b8860b 70%, #6b4a12 100%);
+    border-radius: 6px 6px 12px 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.35);
+    opacity: 0;
+    z-index: 3;
+  }
+  .skvm-curtain-tie::after {
+    content: ""; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+    width: 6px; height: 10px;
+    background: #6b4a12; border-radius: 3px;
+  }
+  .skvm-curtain-tie-left  { left: -12px; }
+  .skvm-curtain-tie-right { right: -12px; }
+
+  /* Curtains part very slowly with a gentle fabric sway */
+  .skvm-launch-overlay.show .skvm-curtain-left {
+    animation: skvm-curtain-open-left 4.5s cubic-bezier(.45,.05,.35,1) .8s forwards;
+  }
+  .skvm-launch-overlay.show .skvm-curtain-right {
+    animation: skvm-curtain-open-right 4.5s cubic-bezier(.45,.05,.35,1) .8s forwards;
+  }
+  .skvm-launch-overlay.show .skvm-curtain-valance {
+    animation: skvm-valance-rise 3s ease-in-out 1.8s forwards;
+  }
+  .skvm-launch-overlay.show .skvm-curtain-tie {
+    animation: skvm-tie-appear .8s ease 3.5s forwards;
+  }
+  .skvm-launch-overlay.show .skvm-curtain {
+    animation: skvm-curtain-cleanup 0s linear 5.5s forwards;
+  }
+  @keyframes skvm-curtain-open-left {
+    0%   { transform: translateX(0)      skewY(0);      }
+    20%  { transform: translateX(-2%)    skewY(-.4deg); }  /* gentle initial sway */
+    50%  { transform: translateX(-35%)   skewY(-1.2deg);}  /* mid-parting */
+    100% { transform: translateX(-105%)  skewY(-2deg);  }
+  }
+  @keyframes skvm-curtain-open-right {
+    0%   { transform: translateX(0)      skewY(0);      }
+    20%  { transform: translateX( 2%)    skewY( .4deg); }
+    50%  { transform: translateX( 35%)   skewY( 1.2deg);}
+    100% { transform: translateX( 105%)  skewY( 2deg);  }
+  }
+  @keyframes skvm-valance-rise {
+    0%   { transform: translateY(0);     opacity: 1; }
+    100% { transform: translateY(-10px); opacity: 0; }
+  }
+  @keyframes skvm-tie-appear {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes skvm-curtain-cleanup {
+    to { visibility: hidden; }
+  }
+
+  /* Gold glow + floral torana (top) */
+  .skvm-launch-card::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(255,215,0,.20), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 140'><g><path d='M0,20 Q200,90 400,60 T800,20' stroke='%23b8860b' stroke-width='2.5' fill='none'/><g fill='%23ffa726'><circle cx='40' cy='28' r='7'/><circle cx='80' cy='42' r='7'/><circle cx='120' cy='54' r='7'/><circle cx='160' cy='63' r='7'/><circle cx='200' cy='68' r='7'/><circle cx='240' cy='69' r='7'/><circle cx='280' cy='67' r='7'/><circle cx='320' cy='63' r='7'/><circle cx='360' cy='58' r='7'/><circle cx='400' cy='53' r='7'/><circle cx='440' cy='55' r='7'/><circle cx='480' cy='58' r='7'/><circle cx='520' cy='58' r='7'/><circle cx='560' cy='55' r='7'/><circle cx='600' cy='49' r='7'/><circle cx='640' cy='42' r='7'/><circle cx='680' cy='34' r='7'/><circle cx='720' cy='27' r='7'/><circle cx='760' cy='22' r='7'/></g><g fill='%23ffcc80'><circle cx='60' cy='34' r='4'/><circle cx='100' cy='48' r='4'/><circle cx='140' cy='58' r='4'/><circle cx='180' cy='66' r='4'/><circle cx='220' cy='69' r='4'/><circle cx='260' cy='68' r='4'/><circle cx='300' cy='65' r='4'/><circle cx='340' cy='60' r='4'/><circle cx='380' cy='55' r='4'/><circle cx='420' cy='54' r='4'/><circle cx='460' cy='56' r='4'/><circle cx='500' cy='58' r='4'/><circle cx='540' cy='56' r='4'/><circle cx='580' cy='52' r='4'/><circle cx='620' cy='46' r='4'/><circle cx='660' cy='38' r='4'/><circle cx='700' cy='30' r='4'/><circle cx='740' cy='24' r='4'/></g><g fill='%234caf50'><path d='M40,20 Q30,12 22,18 Q30,26 40,20'/><path d='M240,60 Q233,50 224,54 Q232,66 240,60'/><path d='M440,48 Q433,38 424,42 Q432,54 440,48'/><path d='M640,32 Q633,22 624,26 Q632,38 640,32'/><path d='M760,14 Q753,4 744,8 Q752,20 760,14'/></g><g fill='%23e91e63'><circle cx='400' cy='53' r='9'/><circle cx='400' cy='53' r='4' fill='%23ffd700'/><circle cx='200' cy='68' r='8'/><circle cx='200' cy='68' r='3.5' fill='%23ffd700'/><circle cx='600' cy='49' r='8'/><circle cx='600' cy='49' r='3.5' fill='%23ffd700'/></g></g></svg>") top / 100% 90px no-repeat;
+    pointer-events: none;
+  }
+  .skvm-launch-card > *:not(.skvm-motif):not(.skvm-launch-close):not(.skvm-curtain) { position: relative; z-index: 1; }
+
+  /* Torana / arch ornament on top */
+  .skvm-launch-card::before {
+    content: "॥ ॐ ॥";
+    position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+    background: #1a237e; color: #ffd700;
+    padding: 4px 22px; border-radius: 30px;
+    font-size: 20px; letter-spacing: 2px;
+    border: 2px solid #ffd700;
+    box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  }
+
+  .skvm-launch-close {
+    position: absolute;
+    top: 16px; right: 16px; left: auto; bottom: auto;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #1a237e; border: 2px solid #ffd700;
+    cursor: pointer;
+    font-size: 28px; font-weight: 700; color: #ffd700; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,.5);
+    transition: transform .15s ease, background .15s ease;
+    z-index: 10001;
+  }
+  .skvm-launch-close:hover {
+    background: #1a237e; color: #ffd700;
+    transform: rotate(90deg) scale(1.05);
+  }
+
+  .skvm-sanskrit {
+    font-size: 16px; color: #7a1f1f;
+    font-style: italic; margin: 2px 0 2px;
+  }
+  .skvm-sanskrit-translit {
+    font-size: 12px; color: #8a6a2a; margin-bottom: 10px;
+    letter-spacing: .4px;
+  }
+
+  .skvm-launch-title {
+    font-size: 26px; font-weight: 700;
+    color: #1a237e; margin: 4px 0 2px;
+    letter-spacing: 1px;
+  }
+  .skvm-launch-sub {
+    font-size: 13px; color: #6b4a12; margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 2.5px;
+  }
+
+  .skvm-hero {
+    display: flex; align-items: center; gap: 20px;
+    margin: 6px 0 16px; text-align: left;
+  }
+  .skvm-hero .skvm-message { margin: 0; flex: 1; }
+  .skvm-logo {
+    flex: 0 0 auto;
+    width: 180px; height: 180px; object-fit: contain;
+    background: transparent;
+  }
+  @media (max-width: 560px) {
+    .skvm-hero { flex-direction: column; text-align: center; gap: 12px; }
+    .skvm-logo { width: 130px; height: 130px; }
+  }
+
+  .skvm-message {
+    font-size: 14.5px; line-height: 1.6; color: #3a2410;
+    margin: 0 0 14px;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+
+  .skvm-launch-meta {
+    background: linear-gradient(135deg, rgba(255,255,255,.75), rgba(255,248,220,.55));
+    border: 1px solid rgba(184,134,11,.4);
+    border-radius: 12px;
+    padding: 2px 0;
+    margin-bottom: 14px;
+    text-align: left;
+    box-shadow: inset 0 0 0 1px rgba(255,215,0,.25);
+  }
+  .skvm-meta-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 14px;
+    border-bottom: 1px dashed rgba(184,134,11,.3);
+  }
+  .skvm-meta-row:last-child { border-bottom: 0; }
+  .skvm-meta-duo { align-items: stretch; gap: 12px; padding: 12px 12px; }
+  .skvm-meta-duo .skvm-meta-cell {
+    flex: 1 1 0; min-width: 0;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px;
+    background: rgba(255,255,255,.45);
+    border: 1px solid rgba(184,134,11,.25);
+    border-radius: 10px;
+  }
+  .skvm-meta-duo .skvm-meta-icon { flex: 0 0 34px; height: 34px; font-size: 17px; }
+  .skvm-meta-duo .skvm-meta-value { font-size: 14px; }
+  .skvm-meta-duo .skvm-meta-label { font-size: 9.5px; letter-spacing: 2px; }
+  .skvm-meta-duo .skvm-meta-sub { font-size: 11px; }
+  @media (max-width: 520px) {
+    .skvm-meta-duo { flex-direction: column; }
+  }
+  .skvm-meta-icon {
+    flex: 0 0 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    background: linear-gradient(135deg, #1a237e, #3a3a9a);
+    color: #ffd700;
+    box-shadow: 0 3px 8px rgba(26,35,126,.35), inset 0 0 0 1.5px #ffd700;
+  }
+  .skvm-meta-body { flex: 1; min-width: 0; }
+  .skvm-meta-label {
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: 2.5px;
+    color: #8a6a2a; font-family: 'Georgia', serif;
+  }
+  .skvm-meta-value {
+    margin-top: 2px; font-size: 16px;
+    color: #1a237e; font-weight: 700;
+    font-family: 'Georgia', serif;
+    line-height: 1.35;
+  }
+  .skvm-meta-sub {
+    display: block; font-size: 12px; font-weight: 500;
+    color: #7a1f1f; font-style: italic;
+    margin-top: 2px; letter-spacing: .3px;
+  }
+
+  .skvm-launch-cta {
+    display: inline-block; padding: 10px 28px;
+    background: linear-gradient(135deg, #1a237e, #3a3a9a);
+    color: #ffd700; text-decoration: none;
+    border-radius: 30px; font-weight: 700;
+    letter-spacing: 1px; font-size: 15px;
+    border: 2px solid #ffd700;
+    transition: transform .15s ease;
+  }
+  .skvm-launch-cta:hover { transform: translateY(-2px); }
+  .skvm-launch-cta { cursor: pointer; }
+
+  /* Slide-to-launch */
+  .skvm-slide {
+    position: relative;
+    width: 100%; max-width: 420px;
+    height: 72px;
+    margin: 4px auto 0;
+    user-select: none;
+    touch-action: none;
+    padding-right: 55px; /* room for Lord Kṛṣṇa's feet */
+    box-sizing: border-box;
+  }
+  .skvm-slide-feet {
+    position: absolute; right: -20px; top: 50%;
+    transform: translateY(-50%);
+    width: 55px; height: 55px;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+    animation: skvm-feet-idle 2.6s ease-in-out infinite;
+  }
+  .skvm-feet-img {
+    width: 100%; height: 100%; object-fit: contain;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,.25));
+  }
+  /* Halo behind the feet (rays / aura) */
+  .skvm-slide-feet::before {
+    content: ""; position: absolute; inset: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,.55) 0%, rgba(255,215,0,0) 70%);
+    z-index: -1;
+    animation: skvm-feet-halo 2.6s ease-in-out infinite;
+  }
+  /* Idle: gentle breathing + halo pulse */
+  @keyframes skvm-feet-idle {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50%      { transform: translateY(-50%) scale(1.05); }
+  }
+  @keyframes skvm-feet-halo {
+    0%, 100% { opacity: .5; transform: scale(.9); }
+    50%      { opacity: 1;  transform: scale(1.15); }
+  }
+
+  /* Near: lotus approaching — feet get excited, radiant rays behind */
+  .skvm-slide.is-near .skvm-slide-feet {
+    animation: skvm-feet-anticipate .5s ease-in-out infinite;
+  }
+  .skvm-slide.is-near .skvm-slide-feet::before {
+    background:
+      conic-gradient(from 0deg,
+        rgba(255,215,0,.9) 0deg, rgba(255,215,0,0) 20deg,
+        rgba(255,215,0,.9) 40deg, rgba(255,215,0,0) 60deg,
+        rgba(255,215,0,.9) 80deg, rgba(255,215,0,0) 100deg,
+        rgba(255,215,0,.9) 120deg, rgba(255,215,0,0) 140deg,
+        rgba(255,215,0,.9) 160deg, rgba(255,215,0,0) 180deg,
+        rgba(255,215,0,.9) 200deg, rgba(255,215,0,0) 220deg,
+        rgba(255,215,0,.9) 240deg, rgba(255,215,0,0) 260deg,
+        rgba(255,215,0,.9) 280deg, rgba(255,215,0,0) 300deg,
+        rgba(255,215,0,.9) 320deg, rgba(255,215,0,0) 340deg);
+    inset: -16px;
+    animation: skvm-feet-rays 1.6s linear infinite;
+    opacity: .85;
+  }
+  @keyframes skvm-feet-anticipate {
+    0%, 100% { transform: translateY(-50%) scale(1.08); }
+    50%      { transform: translateY(-50%) scale(1.18); }
+  }
+  @keyframes skvm-feet-rays {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Launched: divine blessing — repeated radiant pulse for the full shankhanāda */
+  .skvm-slide.is-launched .skvm-slide-feet {
+    animation: skvm-feet-blessing 1.4s ease-in-out infinite;
+  }
+  .skvm-slide.is-launched .skvm-slide-feet::before {
+    animation: skvm-feet-rays 1.2s linear infinite;
+    background:
+      conic-gradient(from 0deg,
+        rgba(255,215,0,1) 0deg, rgba(255,215,0,0) 18deg,
+        rgba(255,215,0,1) 36deg, rgba(255,215,0,0) 54deg,
+        rgba(255,215,0,1) 72deg, rgba(255,215,0,0) 90deg,
+        rgba(255,215,0,1) 108deg, rgba(255,215,0,0) 126deg,
+        rgba(255,215,0,1) 144deg, rgba(255,215,0,0) 162deg,
+        rgba(255,215,0,1) 180deg, rgba(255,215,0,0) 198deg,
+        rgba(255,215,0,1) 216deg, rgba(255,215,0,0) 234deg,
+        rgba(255,215,0,1) 252deg, rgba(255,215,0,0) 270deg,
+        rgba(255,215,0,1) 288deg, rgba(255,215,0,0) 306deg,
+        rgba(255,215,0,1) 324deg, rgba(255,215,0,0) 342deg);
+    inset: -22px;
+    opacity: 1;
+  }
+  @keyframes skvm-feet-blessing {
+    0%, 100% { transform: translateY(-50%) scale(1.2); filter: drop-shadow(0 0 14px rgba(255,215,0,.8)); }
+    50%      { transform: translateY(-50%) scale(1.45); filter: drop-shadow(0 0 34px rgba(255,215,0,1)); }
+  }
+  .skvm-slide-flute {
+    position: absolute; top: 50%; left: 0; right: 0;
+    transform: translateY(-50%);
+    height: 22px;
+    background:
+      linear-gradient(180deg, #d4a840 0%, #b8860b 45%, #8a5a08 100%);
+    border-radius: 12px;
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,.35),
+      inset 0 -2px 3px rgba(0,0,0,.35),
+      0 3px 8px rgba(0,0,0,.3);
+  }
+  .skvm-slide-flute::before, .skvm-slide-flute::after {
+    content: ""; position: absolute; top: 0; width: 10px; height: 22px;
+    background: #6b4a12; border-radius: 4px;
+  }
+  .skvm-slide-flute::before { left: -6px; }
+  .skvm-slide-flute::after  { right: -6px; }
+  .skvm-slide-hole {
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    width: 6px; height: 6px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #3a2410, #1a0f04);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.6);
+  }
+  .skvm-slide-hint {
+    position: absolute; top: 50%; left: 110px; right: 12px;
+    transform: translateY(-50%);
+    font-size: 12px; font-weight: 600;
+    color: #6b4a12; letter-spacing: .5px;
+    text-transform: uppercase;
+    pointer-events: none;
+    text-align: center;
+    opacity: .85;
+    transition: opacity .2s;
+  }
+  .skvm-slide.is-active .skvm-slide-hint { opacity: 0; }
+  .skvm-slide-thumb {
+    position: absolute; top: 50%; left: 0;
+    transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    background: radial-gradient(circle at 35% 30%, #fff8e7 0%, #f6e2a8 100%);
+    border: 2px solid #b8860b;
+    box-shadow:
+      0 0 18px rgba(255,215,0,.6),
+      0 4px 10px rgba(0,0,0,.35);
+    cursor: grab;
+    z-index: 2;
+    transition: box-shadow .2s;
+  }
+  .skvm-slide-thumb:active,
+  .skvm-slide.is-dragging .skvm-slide-thumb { cursor: grabbing; box-shadow: 0 0 28px rgba(255,215,0,.9), 0 6px 14px rgba(0,0,0,.4); }
+  .skvm-slide-thumb.snapback { transition: left .3s cubic-bezier(.5,-0.3,.4,1.4); }
+  .skvm-slide.is-launched .skvm-slide-thumb {
+    transition: transform .4s ease, opacity .4s ease;
+    transform: translateY(-50%) scale(1.5);
+    opacity: 0;
+  }
+
+  /* Center-of-screen divine feet on launch (5s hold) */
+  .skvm-feet-center {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at center, rgba(20,10,40,.7) 0%, rgba(0,0,0,.85) 80%);
+    z-index: 10003;
+    pointer-events: none;
+    animation: skvm-center-fade-in .5s ease-out forwards;
+  }
+  .skvm-feet-center.leaving {
+    animation: skvm-center-fade-out .6s ease-in forwards;
+  }
+  .skvm-feet-center-inner {
+    position: relative;
+    width: min(60vw, 420px); height: min(60vw, 420px);
+    display: flex; align-items: center; justify-content: center;
+    animation: skvm-center-bloom 1.6s ease-in-out infinite;
+  }
+  .skvm-feet-center-inner::before {
+    content: ""; position: absolute; inset: -60px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 0deg,
+        rgba(255,215,0,1) 0deg, rgba(255,215,0,0) 15deg,
+        rgba(255,215,0,1) 30deg, rgba(255,215,0,0) 45deg,
+        rgba(255,215,0,1) 60deg, rgba(255,215,0,0) 75deg,
+        rgba(255,215,0,1) 90deg, rgba(255,215,0,0) 105deg,
+        rgba(255,215,0,1) 120deg, rgba(255,215,0,0) 135deg,
+        rgba(255,215,0,1) 150deg, rgba(255,215,0,0) 165deg,
+        rgba(255,215,0,1) 180deg, rgba(255,215,0,0) 195deg,
+        rgba(255,215,0,1) 210deg, rgba(255,215,0,0) 225deg,
+        rgba(255,215,0,1) 240deg, rgba(255,215,0,0) 255deg,
+        rgba(255,215,0,1) 270deg, rgba(255,215,0,0) 285deg,
+        rgba(255,215,0,1) 300deg, rgba(255,215,0,0) 315deg,
+        rgba(255,215,0,1) 330deg, rgba(255,215,0,0) 345deg);
+    animation: skvm-feet-rays 4s linear infinite;
+    opacity: .55;
+    z-index: -2;
+  }
+  .skvm-feet-center-inner::after {
+    content: ""; position: absolute; inset: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,.7) 0%, rgba(255,215,0,0) 70%);
+    z-index: -1;
+    animation: skvm-halo-breathe 1.6s ease-in-out infinite;
+  }
+  .skvm-feet-center img {
+    width: 100%; height: 100%; object-fit: contain;
+    mix-blend-mode: normal;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,.6)) drop-shadow(0 0 20px rgba(255,215,0,.7));
+  }
+  @keyframes skvm-center-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes skvm-center-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes skvm-center-bloom {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+  }
+  @keyframes skvm-halo-breathe {
+    0%, 100% { opacity: .5; transform: scale(.95); }
+    50%      { opacity: .9; transform: scale(1.1); }
+  }
+
+  /* Flower shower — full-viewport, falls in front of popup */
+  .skvm-flower-shower {
+    position: fixed; inset: 0; pointer-events: none;
+    z-index: 10002; overflow: hidden;
+  }
+  .skvm-petal {
+    position: absolute; top: -40px;
+    font-size: 28px;
+    animation: skvm-fall linear forwards;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+  }
+  @keyframes skvm-fall {
+    0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 1; }
+  }
+
+  .skvm-launch-footer {
+    margin-top: 12px; font-size: 11.5px; color: #8a6a2a;
+    font-style: italic;
+  }
+
+  @keyframes skvm-fade { from { opacity: 0 } to { opacity: 1 } }
+  @keyframes skvm-pop {
+    from { opacity: 0; transform: translateY(20px) scale(.92) }
+    to   { opacity: 1; transform: translateY(0)    scale(1) }
+  }
+  @keyframes skvm-flicker {
+    0%, 100% { transform: translateY(0)    scale(1);   opacity: 1 }
+    50%      { transform: translateY(-2px) scale(1.08); opacity: .85 }
+  }
+
+  @media (max-width: 480px) {
+    .skvm-launch-card { padding: 40px 22px 26px; }
+    .skvm-launch-title { font-size: 24px; }
+  }
+</style>
+
+<div class="skvm-launch-overlay" id="skvmLaunchOverlay" role="dialog" aria-modal="true" aria-labelledby="skvmLaunchTitle">
+  <div class="skvm-launch-card">
+    <!-- Curtain raiser — two velvet panels part to reveal the popup -->
+    <div class="skvm-curtain" aria-hidden="true">
+      <div class="skvm-curtain-valance"></div>
+      <div class="skvm-curtain-panel skvm-curtain-left"></div>
+      <div class="skvm-curtain-panel skvm-curtain-right"></div>
+      <div class="skvm-curtain-tie skvm-curtain-tie-left"></div>
+      <div class="skvm-curtain-tie skvm-curtain-tie-right"></div>
+    </div>
+    <button class="skvm-launch-close" aria-label="Close" onclick="document.getElementById('skvmLaunchOverlay').classList.remove('show')">×</button>
+    <img class="skvm-motif" src="assets/janmashtami-motif.jpg" alt="" aria-hidden="true">
+
+    <h2 class="skvm-launch-title" id="skvmLaunchTitle">Welcome, Dear Alumni</h2>
+    <p class="skvm-launch-sub">SKVM Alumni Network · Grand Launch</p>
+
+    <div class="skvm-hero">
+      <img class="skvm-logo" src="assets/logo-hero.png" alt="Srikrishna Vidya Mandir logo">
+      <p class="skvm-message">
+        On the auspicious occasion of <strong>Śrī Kṛṣṇa Janmāṣṭamī</strong>,
+        with the divine blessings of Bhagavān Śrī Kṛṣṇa, we joyfully inaugurate
+        the <strong style="white-space: nowrap;">Srikrishna Vidya Mandir Alumni Network</strong> — a cherished bond
+        connecting our Principal, teachers, alumni, and friends across the world.
+        May this <em>saṅgama</em> rekindle friendships, inspire wisdom, and carry forward
+        the timeless values of our alma mater.
+      </p>
+    </div>
+
+    <div class="skvm-launch-meta">
+      <div class="skvm-meta-row skvm-meta-duo">
+        <div class="skvm-meta-cell">
+          <div class="skvm-meta-icon">🙏</div>
+          <div class="skvm-meta-body">
+            <div class="skvm-meta-label">Mukhya Atithi · Chief Guest</div>
+            <div class="skvm-meta-value">Sri P. V. N. Madhav garu
+              <span class="skvm-meta-sub">President, BJP Andhra Pradesh</span>
+            </div>
+          </div>
+        </div>
+        <div class="skvm-meta-cell">
+          <div class="skvm-meta-icon">🌸</div>
+          <div class="skvm-meta-body">
+            <div class="skvm-meta-label">Viśiṣṭa Atithi · Guest of Honour</div>
+            <div class="skvm-meta-value">Sri Pusapati Venkatapathi Raju garu
+              <span class="skvm-meta-sub">Director, Bharateeya Vidya Kendram</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skvm-meta-row">
+        <div class="skvm-meta-icon">📅</div>
+        <div class="skvm-meta-body">
+          <div class="skvm-meta-label">Kāla-Sthānam · When &amp; Where</div>
+          <div class="skvm-meta-value">Friday, 4<sup>th</sup> September 2026 · 10:30 AM
+            <span class="skvm-meta-sub">Srikrishna Vidya Mandir, Dwarakanagar — on the sacred day of Śrī Kṛṣṇa Janmāṣṭamī</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Slide-to-launch: flower slides along a flute from left to right -->
+    <div class="skvm-slide" id="skvmSlide" role="button" tabindex="0" aria-label="Slide flower to launch">
+      <div class="skvm-slide-flute">
+        <span class="skvm-slide-hole" style="left: 20%"></span>
+        <span class="skvm-slide-hole" style="left: 32%"></span>
+        <span class="skvm-slide-hole" style="left: 44%"></span>
+        <span class="skvm-slide-hole" style="left: 56%"></span>
+        <span class="skvm-slide-hole" style="left: 68%"></span>
+        <span class="skvm-slide-hole" style="left: 80%"></span>
+      </div>
+      <div class="skvm-slide-hint">Offer the lotus at Kṛṣṇa's feet →</div>
+      <div class="skvm-slide-thumb" id="skvmSlideThumb">🪷</div>
+      <!-- Kṛṣṇa's charaṇa (divine feet) — target of the offering -->
+      <div class="skvm-slide-feet" aria-hidden="true">
+        <img src="assets/krishna-feet.png" alt="" class="skvm-feet-img">
+      </div>
+      <!-- SVG fallback kept for reference (hidden) -->
+      <div hidden>
+        <svg viewBox="0 0 100 110" width="100" height="110">
+          <defs>
+            <radialGradient id="skvmFootFill" cx="50%" cy="45%" r="65%">
+              <stop offset="0%" stop-color="#fff2d8"/>
+              <stop offset="55%" stop-color="#f2c9a0"/>
+              <stop offset="100%" stop-color="#c98653"/>
+            </radialGradient>
+            <linearGradient id="skvmToeNail" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fff5e2"/>
+              <stop offset="100%" stop-color="#f0b48a"/>
+            </linearGradient>
+          </defs>
+
+          <!-- LEFT foot of Lord Śrī Kṛṣṇa (viewed sole-up) -->
+          <g>
+            <!-- graceful elongated sole (heel below, ball above) -->
+            <path d="M20,95 Q6,85 8,62 Q10,42 22,32 Q34,28 40,44 Q44,60 40,78 Q36,92 28,97 Q23,99 20,95 Z"
+                  fill="url(#skvmFootFill)" stroke="#7a3a08" stroke-width="1.3"/>
+            <!-- arch shadow to suggest instep -->
+            <path d="M14,72 Q22,66 34,72" stroke="#a55a1a" stroke-width=".8" fill="none" opacity=".55"/>
+
+            <!-- toes: big → little, curved arc above the ball -->
+            <g stroke="#7a3a08" stroke-width="1">
+              <ellipse cx="14" cy="26" rx="5.2" ry="6.5" fill="url(#skvmFootFill)"/>
+              <ellipse cx="22" cy="20" rx="3.6" ry="4.8" fill="url(#skvmFootFill)"/>
+              <ellipse cx="29" cy="18" rx="3.2" ry="4.3" fill="url(#skvmFootFill)"/>
+              <ellipse cx="35" cy="20" rx="2.8" ry="3.8" fill="url(#skvmFootFill)"/>
+              <ellipse cx="40" cy="24" rx="2.4" ry="3.2" fill="url(#skvmFootFill)"/>
+            </g>
+            <!-- toenails -->
+            <ellipse cx="14" cy="22" rx="2.8" ry="2.2" fill="url(#skvmToeNail)"/>
+            <ellipse cx="22" cy="17" rx="1.9" ry="1.6" fill="url(#skvmToeNail)"/>
+            <ellipse cx="29" cy="15" rx="1.7" ry="1.5" fill="url(#skvmToeNail)"/>
+            <ellipse cx="35" cy="17" rx="1.5" ry="1.3" fill="url(#skvmToeNail)"/>
+            <ellipse cx="40" cy="21" rx="1.3" ry="1.1" fill="url(#skvmToeNail)"/>
+
+            <!-- Traditional auspicious markings on the sole -->
+            <!-- Śaṅkha (conch) near the ball of the foot -->
+            <g transform="translate(24,50)" fill="#b71c1c">
+              <path d="M0,-7 Q-4,-2 -3,3 Q-1,6 3,4 Q6,1 5,-3 Q3,-7 0,-7 Z" opacity=".85"/>
+              <path d="M-1,-4 Q-2,-1 -1,2" stroke="#7a0f0f" stroke-width=".6" fill="none"/>
+            </g>
+            <!-- Chakra (discus) in the middle -->
+            <g transform="translate(22,68)">
+              <circle r="4.2" fill="none" stroke="#b71c1c" stroke-width="1"/>
+              <circle r="1.4" fill="#ffd700" stroke="#b71c1c" stroke-width=".6"/>
+              <g stroke="#b71c1c" stroke-width=".7">
+                <line x1="-4.2" y1="0" x2="4.2" y2="0"/>
+                <line x1="0" y1="-4.2" x2="0" y2="4.2"/>
+                <line x1="-3" y1="-3" x2="3" y2="3"/>
+                <line x1="-3" y1="3"  x2="3" y2="-3"/>
+              </g>
+            </g>
+            <!-- Padma (lotus) on the heel -->
+            <g transform="translate(22,85)" fill="#b71c1c">
+              <path d="M0,-5 Q-2,-1 0,0 Q2,-1 0,-5"/>
+              <path d="M-4,-2 Q-1,0 0,1 Q-2,-3 -4,-2"/>
+              <path d="M4,-2 Q1,0 0,1 Q2,-3 4,-2"/>
+              <path d="M-4,3 Q-1,1 0,0 Q-2,4 -4,3"/>
+              <path d="M4,3 Q1,1 0,0 Q2,4 4,3"/>
+              <circle cx="0" cy="0" r="1.1" fill="#ffd700"/>
+            </g>
+            <!-- Ankle band / anklet ornament (upper band) -->
+            <path d="M8,32 Q22,26 40,30" stroke="#ffd700" stroke-width="1.3" fill="none"/>
+            <circle cx="10" cy="31.5" r="1"   fill="#ffd700"/>
+            <circle cx="40" cy="30" r="1"     fill="#ffd700"/>
+          </g>
+
+          <!-- RIGHT foot (mirrored) -->
+          <g transform="translate(100,0) scale(-1,1)">
+            <path d="M20,95 Q6,85 8,62 Q10,42 22,32 Q34,28 40,44 Q44,60 40,78 Q36,92 28,97 Q23,99 20,95 Z"
+                  fill="url(#skvmFootFill)" stroke="#7a3a08" stroke-width="1.3"/>
+            <path d="M14,72 Q22,66 34,72" stroke="#a55a1a" stroke-width=".8" fill="none" opacity=".55"/>
+            <g stroke="#7a3a08" stroke-width="1">
+              <ellipse cx="14" cy="26" rx="5.2" ry="6.5" fill="url(#skvmFootFill)"/>
+              <ellipse cx="22" cy="20" rx="3.6" ry="4.8" fill="url(#skvmFootFill)"/>
+              <ellipse cx="29" cy="18" rx="3.2" ry="4.3" fill="url(#skvmFootFill)"/>
+              <ellipse cx="35" cy="20" rx="2.8" ry="3.8" fill="url(#skvmFootFill)"/>
+              <ellipse cx="40" cy="24" rx="2.4" ry="3.2" fill="url(#skvmFootFill)"/>
+            </g>
+            <ellipse cx="14" cy="22" rx="2.8" ry="2.2" fill="url(#skvmToeNail)"/>
+            <ellipse cx="22" cy="17" rx="1.9" ry="1.6" fill="url(#skvmToeNail)"/>
+            <ellipse cx="29" cy="15" rx="1.7" ry="1.5" fill="url(#skvmToeNail)"/>
+            <ellipse cx="35" cy="17" rx="1.5" ry="1.3" fill="url(#skvmToeNail)"/>
+            <ellipse cx="40" cy="21" rx="1.3" ry="1.1" fill="url(#skvmToeNail)"/>
+            <g transform="translate(24,50)" fill="#b71c1c">
+              <path d="M0,-7 Q-4,-2 -3,3 Q-1,6 3,4 Q6,1 5,-3 Q3,-7 0,-7 Z" opacity=".85"/>
+              <path d="M-1,-4 Q-2,-1 -1,2" stroke="#7a0f0f" stroke-width=".6" fill="none"/>
+            </g>
+            <g transform="translate(22,68)">
+              <circle r="4.2" fill="none" stroke="#b71c1c" stroke-width="1"/>
+              <circle r="1.4" fill="#ffd700" stroke="#b71c1c" stroke-width=".6"/>
+              <g stroke="#b71c1c" stroke-width=".7">
+                <line x1="-4.2" y1="0" x2="4.2" y2="0"/>
+                <line x1="0" y1="-4.2" x2="0" y2="4.2"/>
+                <line x1="-3" y1="-3" x2="3" y2="3"/>
+                <line x1="-3" y1="3"  x2="3" y2="-3"/>
+              </g>
+            </g>
+            <g transform="translate(22,85)" fill="#b71c1c">
+              <path d="M0,-5 Q-2,-1 0,0 Q2,-1 0,-5"/>
+              <path d="M-4,-2 Q-1,0 0,1 Q-2,-3 -4,-2"/>
+              <path d="M4,-2 Q1,0 0,1 Q2,-3 4,-2"/>
+              <path d="M-4,3 Q-1,1 0,0 Q-2,4 -4,3"/>
+              <path d="M4,3 Q1,1 0,0 Q2,4 4,3"/>
+              <circle cx="0" cy="0" r="1.1" fill="#ffd700"/>
+            </g>
+            <path d="M8,32 Q22,26 40,30" stroke="#ffd700" stroke-width="1.3" fill="none"/>
+            <circle cx="10" cy="31.5" r="1" fill="#ffd700"/>
+            <circle cx="40" cy="30" r="1"   fill="#ffd700"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <p class="skvm-launch-footer">॥ शुभम् भवतु ॥ · May all be auspicious</p>
+  </div>
+  <audio id="skvmLaunchAudio" src="assets/flute.mp3" loop preload="auto"></audio>
+  <audio id="skvmShankhaAudio" src="assets/Shanknaad.mp3" preload="auto"></audio>
+</div>
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'skvmLaunchSeen-v1';
+    var FORCE_SHOW = !!window.SKVM_FORCE_SHOW;
+
+    var overlay = document.getElementById('skvmLaunchOverlay');
+    var audio   = document.getElementById('skvmLaunchAudio');
+
+    function startAudio() {
+      if (!audio) return;
+      audio.volume = 0;
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () { /* autoplay blocked — silent */ });
+      // fade in to 0.55 over ~1.5s
+      var t = 0;
+      var fade = setInterval(function () {
+        t += 0.05;
+        audio.volume = Math.min(0.55, t);
+        if (audio.volume >= 0.55) clearInterval(fade);
+      }, 80);
+    }
+    function stopAudio() {
+      if (!audio) return;
+      // fade out then pause
+      var v = audio.volume;
+      var fade = setInterval(function () {
+        v -= 0.06;
+        if (v <= 0) { audio.pause(); audio.currentTime = 0; audio.volume = 0; clearInterval(fade); return; }
+        audio.volume = v;
+      }, 60);
+    }
+    function closePopup() {
+      overlay.classList.remove('show');
+      stopAudio();
+    }
+
+    var alreadySeen = false;
+    try { alreadySeen = localStorage.getItem(STORAGE_KEY) === '1'; } catch (e) {}
+
+    if (FORCE_SHOW || !alreadySeen) {
+      overlay.classList.add('show');
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+    }
+
+    // Close button stops audio and hides popup.
+    document.querySelectorAll('.skvm-launch-close').forEach(function (el) {
+      el.addEventListener('click', closePopup);
+    });
+
+    // Launch button — play music, shower flowers for 20s, close popup.
+    var SHOWER_MS = 20000;
+    function showerFlowers(durationMs) {
+      var petals = ['🌸','🌺','🪷','🌼','🏵️','🌷','💐'];
+      var host = document.createElement('div');
+      host.className = 'skvm-flower-shower';
+      document.body.appendChild(host);
+      var stopAt = Date.now() + durationMs;
+      function spawnBatch() {
+        if (Date.now() > stopAt) return;
+        for (var i = 0; i < 12; i++) {
+          var p = document.createElement('span');
+          p.className = 'skvm-petal';
+          p.textContent = petals[Math.floor(Math.random() * petals.length)];
+          p.style.left = (Math.random() * 100) + 'vw';
+          p.style.fontSize = (18 + Math.random() * 26) + 'px';
+          var dur = 3 + Math.random() * 3;
+          p.style.animationDuration = dur + 's';
+          host.appendChild(p);
+          (function (el, ms) { setTimeout(function () { el.remove(); }, ms); })(p, dur * 1000 + 500);
+        }
+        setTimeout(spawnBatch, 450);
+      }
+      spawnBatch();
+      setTimeout(function () { host.remove(); }, durationMs + 6500);
+    }
+    var shankha = document.getElementById('skvmShankhaAudio');
+    var SHANKHA_MS = 6000;
+    // Close popup + fade audio one second before shankhanāda / Om animation ends
+    var CLOSE_MS = SHANKHA_MS - 1000;
+
+    function playShankha() {
+      if (!shankha) return;
+      try { shankha.currentTime = 0; } catch (e) {}
+      shankha.volume = 0.9;
+      var p = shankha.play();
+      if (p && p.catch) p.catch(function () { /* autoplay blocked — silent */ });
+      // fade the conch out ~400ms before CLOSE_MS so it's silent by the time popup closes
+      setTimeout(function () {
+        var v = shankha.volume;
+        var fade = setInterval(function () {
+          v -= 0.1;
+          if (v <= 0) { shankha.pause(); try { shankha.currentTime = 0; } catch (e) {} clearInterval(fade); return; }
+          shankha.volume = v;
+        }, 40);
+      }, Math.max(0, CLOSE_MS - 400));
+    }
+
+    function showFeetCenter(holdMs) {
+      var host = document.createElement('div');
+      host.className = 'skvm-feet-center';
+      var inner = document.createElement('div');
+      inner.className = 'skvm-feet-center-inner';
+      var img = document.createElement('img');
+      img.src = 'assets/om.png';
+      img.alt = '';
+      inner.appendChild(img);
+      host.appendChild(inner);
+      document.body.appendChild(host);
+      setTimeout(function () {
+        host.classList.add('leaving');
+        setTimeout(function () { host.remove(); }, 600);
+      }, holdMs);
+    }
+
+    function triggerLaunch() {
+      // Sacred conch + centered divine feet for 5 s
+      playShankha();
+      showFeetCenter(5000);
+
+      // Close the popup + start the flower shower 1s before shankhanāda ends
+      setTimeout(function () {
+        overlay.classList.remove('show');
+        startAudio();
+        showerFlowers(SHOWER_MS);
+        setTimeout(stopAudio, SHOWER_MS);
+      }, CLOSE_MS);
+    }
+
+    // Slide-to-launch: drag flower along flute; releasing near the right end fires launch.
+    var slide = document.getElementById('skvmSlide');
+    var thumb = document.getElementById('skvmSlideThumb');
+    if (slide && thumb) {
+      var dragging = false, startX = 0, thumbStart = 0, maxX = 0, launched = false;
+
+      function measure() { maxX = slide.clientWidth - thumb.offsetWidth; }
+      function setX(x) {
+        x = Math.max(0, Math.min(maxX, x));
+        thumb.style.left = x + 'px';
+        // near the feet? — trigger the "excited" animation
+        if (x >= maxX - Math.max(30, maxX * 0.15)) slide.classList.add('is-near');
+        else slide.classList.remove('is-near');
+        return x;
+      }
+      function start(clientX) {
+        if (launched) return;
+        measure();
+        dragging = true;
+        thumb.classList.remove('snapback');
+        slide.classList.add('is-dragging', 'is-active');
+        startX = clientX;
+        thumbStart = parseFloat(thumb.style.left || 0);
+      }
+      function move(clientX) {
+        if (!dragging) return;
+        setX(thumbStart + (clientX - startX));
+      }
+      function end() {
+        if (!dragging) return;
+        dragging = false;
+        slide.classList.remove('is-dragging');
+        var cur = parseFloat(thumb.style.left || 0);
+        if (cur >= maxX - 6) {
+          // reached the end — launch
+          launched = true;
+          setX(maxX);
+          slide.classList.add('is-launched');
+          setTimeout(triggerLaunch, 300);
+        } else {
+          // snap back
+          thumb.classList.add('snapback');
+          setX(0);
+          slide.classList.remove('is-active', 'is-near');
+        }
+      }
+
+      thumb.addEventListener('pointerdown', function (e) {
+        thumb.setPointerCapture(e.pointerId);
+        start(e.clientX);
+      });
+      thumb.addEventListener('pointermove', function (e) { move(e.clientX); });
+      thumb.addEventListener('pointerup',   function () { end(); });
+      thumb.addEventListener('pointercancel', function () { end(); });
+
+      // Keyboard accessibility: Enter/Space to launch straight away
+      slide.addEventListener('keydown', function (e) {
+        if (launched) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          measure();
+          launched = true;
+          setX(maxX);
+          slide.classList.add('is-launched', 'is-active');
+          setTimeout(triggerLaunch, 300);
+        }
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('show')) closePopup();
+    });
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closePopup();
+    });
+  })();
+</script>
