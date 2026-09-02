@@ -49,67 +49,493 @@
     </div>
   </nav>
 
-  <!-- Page Hero -->
-  <section class="page-hero">
-    <p class="page-hero__eyebrow">Give Back</p>
-    <h1 class="page-hero__title">Support Your Alma Mater</h1>
-    <p class="page-hero__subtitle">Every contribution helps shape the next generation of SKVM graduates</p>
-  </section>
-
-  <!-- Donation Tiers -->
-  <section class="section section--parchment">
-    <p class="section__eyebrow" style="text-align:center;">Choose Your Impact</p>
-    <h2 class="section__title" style="text-align:center; max-width:none;">Make a Meaningful Contribution</h2>
-    <p style="color:var(--brown); text-align:center; font-size:15px; max-width:560px; margin:0 auto 36px; line-height:1.75;">
-      Your contribution helps fund scholarships, school infrastructure, and community programmes
-      that directly benefit students and staff at SKVM.
-    </p>
-    <div class="cards-grid" style="max-width:420px; margin:0 auto 36px;">
-      <div class="tier-card tier-card--featured">
-        <div class="tier-card__amount">Alumni Contribution</div>
-        <div class="tier-card__desc">Support scholarships, school infrastructure, and community programmes that directly benefit SKVM students and staff.</div>
-      </div>
-    </div>
-    <div style="text-align:center;">
-      <a href="#" class="btn btn--gold" style="font-size:14px; padding:14px 40px;">Donate Now</a>
-      <p style="color:var(--brown-mid); font-size:12px; margin-top:12px;">
-        Bank transfer details and UPI information will be shared upon request.<br>
-        Contact us at <a href="mailto:alumni.skvm@gmail.com" style="color:var(--blue-dark); text-decoration:underline;">alumni.skvm@gmail.com</a>
+  <!-- Give Back Hero + Bank Details (side-by-side, bank card visible above the fold) -->
+  <section class="giveback-hero">
+    <div class="giveback-hero__intro">
+      <p class="page-hero__eyebrow" style="margin-bottom:12px;">Give Back</p>
+      <h1 class="giveback-hero__title">Contribute to Your Alma Mater</h1>
+      <p class="giveback-hero__lede">
+        The SKVM Alumni Association is powered entirely by member contributions.
+        Transfer your membership amount using the bank details on the right, then
+        send us a short email so we can add you to the register.
       </p>
+      <ol class="giveback-steps" role="list">
+        <li>
+          <span class="giveback-steps__num">1</span>
+          <div class="giveback-steps__body">
+            <strong>Transfer</strong> any amount to the account shown.
+          </div>
+        </li>
+        <li>
+          <span class="giveback-steps__num">2</span>
+          <div class="giveback-steps__body">
+            <strong>Email us</strong> your name, batch year and UTR / reference:
+            <a href="mailto:alumni.skvm@gmail.com?subject=Membership%20Contribution%20-%20Payment%20Confirmation&body=Name%3A%20%0ABatch%20(Year%20of%20passing)%3A%20%0AAmount%20Transferred%3A%20%0ATransaction%20Reference%20%2F%20UTR%3A%20%0ADate%20of%20Transfer%3A%20%0A"
+               class="giveback-steps__mail" aria-label="Email alumni.skvm@gmail.com">
+              <span class="giveback-steps__mail-icon" aria-hidden="true">✉</span>
+              <span class="giveback-steps__mail-addr">alumni.skvm@gmail.com</span>
+            </a>
+          </div>
+        </li>
+        <li>
+          <span class="giveback-steps__num">3</span>
+          <div class="giveback-steps__body">
+            <strong>We reply</strong> with a receipt and add you to the annual report.
+          </div>
+        </li>
+      </ol>
+
+      <figure class="giveback-quote">
+        <svg class="giveback-quote__mark" viewBox="0 0 40 32" aria-hidden="true">
+          <path d="M0 32V16C0 7.2 6.4 0 16 0v6.4c-5.6 0-9.6 4-9.6 9.6H16V32H0zm24 0V16c0-8.8 6.4-16 16-16v6.4c-5.6 0-9.6 4-9.6 9.6H40V32H24z" fill="currentColor"/>
+        </svg>
+        <blockquote class="giveback-quote__text">
+          A tree that once gave you shade deserves to be watered by the fruit it helped you bear.
+        </blockquote>
+        <figcaption class="giveback-quote__caption">
+          <span class="giveback-quote__ornament" aria-hidden="true"></span>
+          For SKVM, from those it shaped
+          <span class="giveback-quote__ornament" aria-hidden="true"></span>
+        </figcaption>
+      </figure>
     </div>
+
+    <aside class="bank-card" aria-labelledby="bank-card-title">
+      <div class="bank-card__ribbon">Bank Transfer Details</div>
+      <h2 id="bank-card-title" class="bank-card__holder">SRI KRISHNA VIDYA MANDIR ALUMNI ASSN</h2>
+
+      <div class="bank-card__row bank-card__row--hero">
+        <div class="bank-card__label">Account Number</div>
+        <div class="bank-card__value bank-card__value--mono">
+          <span id="bank-acc">5020 0124 4948 69</span>
+          <button type="button" class="bank-card__copy" data-copy="502001244948 69" data-target="bank-acc" aria-label="Copy account number">Copy</button>
+        </div>
+      </div>
+
+      <div class="bank-card__row bank-card__row--hero">
+        <div class="bank-card__label">IFSC Code</div>
+        <div class="bank-card__value bank-card__value--mono">
+          <span id="bank-ifsc">HDFC0000050</span>
+          <button type="button" class="bank-card__copy" data-copy="HDFC0000050" data-target="bank-ifsc" aria-label="Copy IFSC code">Copy</button>
+        </div>
+      </div>
+
+      <dl class="bank-card__grid">
+        <dt>Bank</dt><dd>HDFC Bank</dd>
+        <dt>Branch</dt><dd>Visakhapatnam, Andhra Pradesh</dd>
+        <dt>MICR Code</dt><dd style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;">530240002</dd>
+      </dl>
+
+      <a href="mailto:alumni.skvm@gmail.com?subject=Membership%20Contribution%20-%20Payment%20Confirmation&body=Name%3A%20%0ABatch%20(Year%20of%20passing)%3A%20%0AAmount%20Transferred%3A%20%0ATransaction%20Reference%20%2F%20UTR%3A%20%0ADate%20of%20Transfer%3A%20%0A"
+         class="bank-card__cta">✉ Email Payment Confirmation</a>
+      <p class="bank-card__note">Please email us after transferring so we can acknowledge your contribution.</p>
+    </aside>
   </section>
 
-  <!-- Impact Section -->
-  <section class="section section--white">
+  <!-- Where Your Money Goes -->
+  <section class="section section--parchment">
     <p class="section__eyebrow" style="text-align:center;">Your Impact</p>
-    <h2 class="section__title" style="text-align:center; max-width:none;">Where Your Donation Goes</h2>
-    <div class="cards-grid cards-grid--3" style="max-width:960px; margin:0 auto;">
-      <div class="card" style="text-align:center;">
+    <h2 class="section__title" style="text-align:center; max-width:none;">Where Every Rupee Goes</h2>
+    <p style="color:var(--brown); text-align:center; font-size:15px; max-width:640px; margin:0 auto 36px; line-height:1.75;">
+      100% of contributions are pooled by the Alumni Association committee and spent on the school
+      and its students. Broadly, funds are allocated across three areas:
+    </p>
+
+    <div class="cards-grid cards-grid--3" style="max-width:960px; margin:0 auto 24px;">
+      <div class="card impact-card">
         <div class="card__icon">📚</div>
+        <div class="impact-card__pct">≈ 50%</div>
         <h3 class="card__title">Student Scholarships</h3>
-        <p class="card__body">Ensuring that financial hardship never stands between a bright student and a quality education at SKVM.</p>
+        <p class="card__body">Fee support and learning materials for meritorious students from families with financial hardship, so no SKVM student is left behind.</p>
       </div>
-      <div class="card" style="text-align:center;">
+      <div class="card impact-card">
         <div class="card__icon">🏗️</div>
+        <div class="impact-card__pct">≈ 30%</div>
         <h3 class="card__title">School Infrastructure</h3>
-        <p class="card__body">Upgrading classrooms, libraries, science labs, and sports facilities to provide the best learning environment.</p>
+        <p class="card__body">Classroom repairs, library books, science-lab equipment, sports gear and other one-time capital needs the school requests each year.</p>
       </div>
-      <div class="card" style="text-align:center;">
+      <div class="card impact-card">
         <div class="card__icon">🎉</div>
-        <h3 class="card__title">Events & Activities</h3>
-        <p class="card__body">Funding cultural events, alumni meets, teacher felicitations, and extracurricular programmes that make school life memorable.</p>
+        <div class="impact-card__pct">≈ 20%</div>
+        <h3 class="card__title">Events & Teacher Welfare</h3>
+        <p class="card__body">Annual alumni meet, teacher felicitations, cultural events and small welfare gestures for the staff who shaped us.</p>
       </div>
     </div>
-  </section>
-
-  <!-- Transparency Note -->
-  <section class="section section--parchment" style="text-align:center; padding:40px 32px;">
-    <p class="section__eyebrow">Transparency</p>
-    <p style="color:var(--brown); font-size:15px; max-width:560px; margin:0 auto; line-height:1.75;">
-      All donations are managed by the SKVM Alumni Association committee and accounted for in our annual report,
-      shared with all members. We are committed to full transparency in how funds are utilised.
+    <p style="color:var(--brown-mid); text-align:center; font-size:12px; max-width:640px; margin:0 auto; line-height:1.6;">
+      Percentages are indicative and adjusted each year by the committee based on the school's current needs.
     </p>
   </section>
+
+  <!-- Transparency -->
+  <section class="section section--white" style="text-align:center;">
+    <p class="section__eyebrow">Transparency</p>
+    <h2 class="section__title" style="text-align:center; max-width:none;">Accountable to Every Contributor</h2>
+    <div class="transparency-grid">
+      <div class="transparency-item">
+        <div class="transparency-item__icon">📄</div>
+        <h3>Annual Report</h3>
+        <p>A yearly statement of income and expenses is shared with all contributing members.</p>
+      </div>
+      <div class="transparency-item">
+        <div class="transparency-item__icon">👥</div>
+        <h3>Committee Oversight</h3>
+        <p>All disbursements are approved by the elected Alumni Association <a href="committee.html">committee</a>.</p>
+      </div>
+      <div class="transparency-item">
+        <div class="transparency-item__icon">✉️</div>
+        <h3>Ask Anything</h3>
+        <p>Questions about a specific spend? Write to <a href="mailto:alumni.skvm@gmail.com">alumni.skvm@gmail.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Styles specific to Give Back page -->
+  <style>
+    .giveback-hero {
+      background:
+        radial-gradient(1200px 400px at 90% -10%, rgba(200,168,75,0.18), transparent 60%),
+        linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+      color: #fff;
+      padding: 56px 40px 64px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+    .giveback-hero > * {
+      max-width: 620px;
+    }
+    .giveback-hero .bank-card {
+      max-width: 480px;
+      justify-self: end;
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+    }
+    .giveback-hero .bank-card__cta { margin-top: auto; }
+    .giveback-hero__intro {
+      max-width: 620px;
+      display: flex;
+      flex-direction: column;
+    }
+    .giveback-hero__intro .giveback-quote { margin-top: auto; }
+    .giveback-hero__title {
+      font-size: clamp(28px, 3.2vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.3px;
+      margin: 0 0 18px;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .giveback-hero__lede {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.9);
+      margin: 0 0 28px;
+    }
+    .giveback-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: grid;
+      gap: 14px;
+    }
+    .giveback-steps li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.6;
+    }
+    .giveback-steps__num {
+      flex: none;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .giveback-steps a { color: var(--gold); text-decoration: underline; }
+    .giveback-steps__body { flex: 1; min-width: 0; }
+    .giveback-steps__body strong { color: #fff; font-weight: 600; }
+    .giveback-steps__mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 8px 14px;
+      background: rgba(200, 168, 75, 0.15);
+      border: 1px solid rgba(200, 168, 75, 0.55);
+      border-radius: 999px;
+      color: var(--gold) !important;
+      text-decoration: none !important;
+      font-weight: 600;
+      font-size: 13.5px;
+      letter-spacing: 0.2px;
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      max-width: 100%;
+    }
+    .giveback-steps__mail:hover {
+      background: var(--gold);
+      color: var(--blue-dark) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(200,168,75,0.35);
+    }
+    .giveback-steps__mail-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(200,168,75,0.3);
+      font-size: 11px;
+    }
+    .giveback-steps__mail:hover .giveback-steps__mail-icon {
+      background: rgba(26,35,126,0.15);
+    }
+    .giveback-steps__mail-addr {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .giveback-quote {
+      position: relative;
+      margin: 0;
+      padding: 26px 28px 22px;
+      background:
+        linear-gradient(180deg, rgba(200,168,75,0.10), rgba(200,168,75,0.02));
+      border: 1px solid rgba(200,168,75,0.35);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .giveback-quote::before,
+    .giveback-quote::after {
+      content: "";
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,168,75,0.22), transparent 70%);
+      pointer-events: none;
+    }
+    .giveback-quote::before { top: -60px; right: -40px; }
+    .giveback-quote::after  { bottom: -70px; left: -50px; width: 160px; height: 160px; }
+    .giveback-quote__mark {
+      width: 28px; height: 22px;
+      color: var(--gold);
+      opacity: 0.85;
+      margin-bottom: 10px;
+    }
+    .giveback-quote__text {
+      margin: 0 0 14px;
+      font-size: 17px;
+      line-height: 1.55;
+      font-style: italic;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.1px;
+    }
+    .giveback-quote__caption {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .giveback-quote__ornament {
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .bank-card {
+      background: #fff;
+      color: var(--brown);
+      border-radius: 16px;
+      padding: 34px 34px 30px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+      position: relative;
+      border-top: 6px solid var(--gold);
+      max-width: 480px;
+      justify-self: end;
+      width: 100%;
+    }
+    .bank-card__ribbon {
+      position: absolute;
+      top: -14px; left: 24px;
+      background: var(--gold);
+      color: var(--blue-dark);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 4px;
+    }
+    .bank-card__holder {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue-dark);
+      letter-spacing: 0px;
+      line-height: 1.35;
+      margin: 4px 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(200,168,75,0.45);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bank-card__row--hero {
+      background: #faf6ec;
+      border: 1px solid rgba(200,168,75,0.35);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .bank-card__label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--brown-mid);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .bank-card__value {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+    .bank-card__value--mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 1px; }
+    .bank-card__copy {
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--blue-dark);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .bank-card__copy:hover { background: var(--gold); color: var(--blue-dark); }
+    .bank-card__copy.is-copied { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+
+    .bank-card__grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px 22px;
+      margin: 14px 0 20px;
+      padding: 16px 16px;
+      background: #fbfaf7;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    .bank-card__grid dt {
+      color: var(--brown-mid);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-size: 12.5px;
+      align-self: center;
+    }
+    .bank-card__grid dd { margin: 0; color: var(--brown); font-weight: 600; font-size: 15px; }
+
+    .bank-card__cta {
+      display: block;
+      text-align: center;
+      background: var(--gold);
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      padding: 14px 20px;
+      border-radius: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .bank-card__cta:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(200,168,75,0.35); }
+    .bank-card__note {
+      font-size: 12px;
+      color: var(--brown-mid);
+      text-align: center;
+      margin: 10px 0 0;
+      line-height: 1.55;
+    }
+
+    .impact-card { position: relative; text-align: center; }
+    .impact-card__pct {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin: 6px 0 8px;
+    }
+
+    .transparency-grid {
+      max-width: 960px;
+      margin: 36px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .transparency-item { padding: 8px; }
+    .transparency-item__icon { font-size: 28px; margin-bottom: 8px; }
+    .transparency-item h3 { font-size: 15px; color: var(--blue-dark); margin: 4px 0 6px; }
+    .transparency-item p { font-size: 13px; color: var(--brown); line-height: 1.65; margin: 0; }
+    .transparency-item a { color: var(--blue-dark); text-decoration: underline; }
+
+    @media (max-width: 860px) {
+      .giveback-hero {
+        grid-template-columns: 1fr;
+        padding: 40px 20px 48px;
+        gap: 28px;
+      }
+      .giveback-hero__title { white-space: normal; font-size: clamp(24px, 6vw, 32px); }
+      .bank-card { justify-self: center; }
+      .transparency-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
+
+  <script>
+    document.querySelectorAll('.bank-card__copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = document.getElementById(btn.dataset.target);
+        var text = (target ? target.textContent : btn.dataset.copy || '').trim();
+        var done = function () {
+          var original = btn.textContent;
+          btn.textContent = 'Copied';
+          btn.classList.add('is-copied');
+          setTimeout(function () { btn.textContent = original; btn.classList.remove('is-copied'); }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, done);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta); done();
+        }
+      });
+    });
+  </script>
 
   <!-- Footer -->
   <footer class="footer">
