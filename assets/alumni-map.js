@@ -4,48 +4,181 @@
 (function () {
   const ALUMNI = [
     // India
-    ["Visakhapatnam", "India", 17.6868, 83.2185, [
-      "K. Durga Aparna (2001)", "D A V Suresh (2008)", "Tangudu Akhilesh (2023)",
-      "GSR Arun Kumar (1992)", "P. Siri Varshini (2020)", "K. Uditha Hasini (2022)",
-      "Sagi Rajani (1990)", "M.N.S. Siddhartha (2015)", "D. Uma Neelaveni (1994)",
-      "Pulakhandam Sowndarya (2023)", "Nouduri Venkata Abhishek (2011)",
-      "Pattapu Navyanjali (2015)", "Soumya Ranjan Jena (2010)", "Sneha Korada (2021)",
-      "Nakka Sridevi Chandrakala (2014)", "Nedunuri Aravinda (1990)",
-      "Pola Sri Krishna Chaitanya (2023)", "Boddepalli Harish (2007)",
-      "Madhukar Mudunuru (1998)", "V. Siva Santosh Karthik (2025)",
-      "Pindiprolu Venkata Phani Raju (1989)"
-    ]],
-    ["Hyderabad", "India", 17.3850, 78.4867, [
-      "Sridevi Mattaparthi (2006)", "Pavan Kumar Jallu (1989)",
-      "Gandham Lalita Bhanu Prakash (1995)", "Chandra Y (1998)"
+    ["Ahmedabad", "India", 23.0225, 72.5714, [
+      "Dangeti Viswateja Ashish (2008)"
     ]],
     ["Bengaluru", "India", 12.9716, 77.5946, [
-      "Vighneswari Kunapuli (2001)", "Rama Sastry (1988)", "Sriharsha Paidighantam (2008)"
+      "Anusha Sidharth (2000)", "Bhargav Bhamidipati (1997)", "Dev B J C (2007)",
+      "K. Veena Soujanya (1998)", "Kedarsethi Akshay Kumar (2020)",
+      "Omkar Manas Baratam (2006)", "Pavan Palepu (2008)", "Poosarla Ravi Teja (2007)",
+      "Rama Sastry (1988)", "Ramjee Ganti (1997)", "Ravikanth M P (1994)",
+      "Sasikiran Boddapati (1998)", "Shastry Anipindi (1995)", "Sridhar Kasukhela (1985)",
+      "Sriharsha Paidighantam (2008)", "Supriya Kotini (1999)",
+      "Varaha Vinaya Priyanka Geddam (2016)",
+      "Vemparala Sri Kameswari Sai Susmita (2022)", "Vighneswari Kunapuli (2001)"
     ]],
-    ["Vijayawada", "India", 16.5062, 80.6480, ["Lekhana Narayan Doddi (2020)"]],
-    ["Secunderabad", "India", 17.4399, 78.4983, ["Jay Laxmi Trivedi (1991)"]],
-    ["Ranchi", "India", 23.3441, 85.3096, ["Himaja Moritala (2010)"]],
-    ["Kakinada", "India", 16.9891, 82.2475, ["Dr. K. Sujatha (1986)"]],
-    ["Kochi", "India", 9.9312, 76.2673, ["A V S Chakravarti (1985)"]],
-    ["Guwahati", "India", 26.1445, 91.7362, ["Rajeev Kumar Patwari (1988)"]],
+    ["Chennai", "India", 13.0827, 80.2707, [
+      "Aswini Nadiminti (2006)", "P. Kamal Kumar (2001)", "Ravi Babu Pyla (1998)"
+    ]],
+    ["Delhi", "India", 28.6139, 77.2090, [
+      "Sangram Kumar Naik (1989)"
+    ]],
+    ["Eluru", "India", 16.7107, 81.0952, [
+      "Rasagna Toleti (2022)"
+    ]],
+    ["Guwahati", "India", 26.1445, 91.7362, [
+      "Rajeev Kumar Patwari (1988)"
+    ]],
+    ["Hyderabad", "India", 17.3850, 78.4867, [
+      "Aditi Ashok (2007)", "Chandra Y (1998)", "Chengalvala Naga Prasad (1992)",
+      "Devireddy Madhuri (2019)", "Dr. K. V. Ratnamala (2000)",
+      "Gandham Lalita Bhanu Prakash (1995)", "Gayatri Ivaturi (2005)",
+      "K. Purna Chandra Rama Naidu (2015)", "Katari Anu Deepika (2015)",
+      "Kishore Devarakonda (1999)", "Kothalanka Shivadeep Sai (2017)",
+      "Naimisha Giri (2013)", "Pavan Kumar Jallu (1989)", "Pediredla Maheshwari (2020)",
+      "Poojitha Vetcha (2002)", "Pusapati Jagannadha Varma (2010)",
+      "Ravi Sarma Somayajula (1988)", "Samyuktha Arikarevula (2014)",
+      "Sanjay GVR (2002)", "Shyam Sundar (2019)", "Somayajula Venkata Jogarao (1989)",
+      "Sony Adapa (2002)", "Sridevi Mattaparthi (2006)", "Srikant Kalaga (2002)",
+      "Vamsi Pemmaraju (2015)"
+    ]],
+    ["Jodhpur", "India", 26.2389, 73.0243, [
+      "Ananth Patnaik (2015)"
+    ]],
+    ["Kakinada", "India", 16.9891, 82.2475, [
+      "Bhaskar Kambhampati (2019)", "Dr. K. Sujatha (1986)"
+    ]],
+    ["Kochi", "India", 9.9312, 76.2673, [
+      "A V S Chakravarti (1985)"
+    ]],
+    ["Mumbai", "India", 19.0760, 72.8777, [
+      "Sai Vikas Dommeti (2020)"
+    ]],
+    ["Mysore", "India", 12.2958, 76.6394, [
+      "Nagisetti Harshitha Naidu (2024)"
+    ]],
+    ["Navi Mumbai", "India", 19.0330, 73.0297, [
+      "Ashok Karkera (2000)"
+    ]],
+    ["Ongole", "India", 15.5057, 80.0499, [
+      "Thalada Suguna Rani (1998)"
+    ]],
+    ["Pune", "India", 18.5204, 73.8567, [
+      "Pushkar Adari (2019)", "Sai Santhosh Pentakota (2016)"
+    ]],
+    ["Ranchi", "India", 23.3441, 85.3096, [
+      "Himaja Moritala (2010)"
+    ]],
+    ["Secunderabad", "India", 17.4399, 78.4983, [
+      "Jay Laxmi Trivedi (1991)"
+    ]],
+    ["Siluguri", "India", 26.7271, 88.3953, [
+      "Kavita Murari (1990)"
+    ]],
+    ["Vadodara", "India", 22.3072, 73.1812, [
+      "Nagisetti Abhiram Karthikeya (2024)"
+    ]],
+    ["Vijayawada", "India", 16.5062, 80.6480, [
+      "Lekhana Narayan Doddi (2020)", "Rejeti Srinivas (2019)"
+    ]],
+    ["Visakhapatnam", "India", 17.6868, 83.2185, [
+      "Alekhya Manchikanti (2022)", "Alluri Teneswar Prasanth Reddy (2018)",
+      "B V S R Sai Ganesh (2016)", "Bodasingi Vaishnavi (2021)",
+      "Boddepalli Harish (2007)", "Ch. Harsha Ravi Teja (2003)",
+      "Chekuri Radha Devi (1990)", "D A V Suresh (2008)", "D S N Sharan (2006)",
+      "D. Uma Neelaveni (1994)", "Dadi Tushar (2022)", "G V R Sandeep (2000)",
+      "Govindavajhala Sriram Arun Kumar (1992)", "Gudla Loka Poojitha (2024)",
+      "K. Durga Aparna (2001)", "K. Likith (2022)", "K. Uditha Hasini (2022)",
+      "Katakam Madhuri (2021)", "Kesireddy Javali Srisatyasahithi (2020)",
+      "Kunthsam Venkata Santoshi Hemalatha (1999)", "Lalita Pappu (1988)",
+      "M.N.S. Siddhartha (2015)", "Madhavi N. (2017)", "Madhukar Mudunuru (1998)",
+      "Manchikanti Abhiram (2025)", "Manoj Venkat Seelam (2007)",
+      "Nakka Sridevi Chandrakala (2014)", "Nedunuri Aravinda (1990)",
+      "Nitya Ramanan (1998)", "Nouduri Venkata Abhishek (2011)",
+      "Odugu Sarat Chandra (2022)", "P. Geya Sree (2022)", "P. Siri Varshini (2020)",
+      "P. Venkateswara Rao (2005)", "Pattapu Navyanjali (2015)",
+      "Phani Kumar Somayajula (1999)", "Pindiprolu Venkata Phani Raju (1989)",
+      "Pola Sri Krishna Chaitanya (2023)", "Pulakhandam Sowndarya (2023)",
+      "Pulavarthi Sri Varshini (2019)", "Sagi Rajani (1990)",
+      "Sneha Korada (2021)", "Soumya Ranjan Jena (2010)", "T. N. Chaitanya (2000)",
+      "Tangudu Akhilesh (2023)", "Taruni Surisetti (2022)",
+      "V. Bharathi Kanti Lakshmi", "V. Siva Santosh Karthik (2025)",
+      "Vennela Boddeti (2017)", "Venugopal K. (2007)",
+      "Waltair Srikara Likhith (2018)", "Y. Madhavi Latha (1999)",
+      "Yernena Uma Maheswari (2018)"
+    ]],
 
     // USA
-    ["Sunnyvale, CA", "USA", 37.3688, -122.0363, ["Krishna Nadiminti (2002)"]],
-    ["Aldie, VA", "USA", 38.9776, -77.6402, ["Geetha Vani Pusapati (1986)"]],
-    ["Seattle, WA", "USA", 47.6062, -122.3321, [
-      "Satvik Vishnubhatta (2008)", "Divya Kiron (2001)"
+    ["Aldie, VA", "USA", 38.9776, -77.6402, [
+      "Geetha Vani Pusapati (1986)"
     ]],
-    ["Cleveland, OH", "USA", 41.4993, -81.6944, ["Sameera Jaldu (1999)"]],
-    ["Chicago, IL", "USA", 41.8781, -87.6298, ["Krishna Chaitanya Rachapudi (2007)"]],
+    ["Atlanta, GA", "USA", 33.7490, -84.3880, [
+      "Sasanka Gandavarapu (2000)"
+    ]],
+    ["Baltimore, MD", "USA", 39.2904, -76.6122, [
+      "Sridhara Yaddanapudi (1999)"
+    ]],
+    ["Chicago, IL", "USA", 41.8781, -87.6298, [
+      "Krishna Chaitanya Rachapudi (2007)"
+    ]],
+    ["Cleveland, OH", "USA", 41.4993, -81.6944, [
+      "Sameera Jaldu (1999)"
+    ]],
+    ["Dallas, TX", "USA", 32.7767, -96.7970, [
+      "Manjula Saladi (2003)", "Ravi Shankar (2001)", "V. K. Prasanthi Sistla (2005)"
+    ]],
+    ["Downingtown, PA", "USA", 40.0068, -75.7032, [
+      "Sowmya Kurella (2002)"
+    ]],
+    ["Ellicott City, MD", "USA", 39.2673, -76.7983, [
+      "Chandra Puranam (1987)"
+    ]],
+    ["Jacksonville, FL", "USA", 30.3322, -81.6557, [
+      "Venkata Padma P. Kolapalli (2003)"
+    ]],
+    ["Los Angeles, CA", "USA", 34.0522, -118.2437, [
+      "Murali Siruvuru (1991)"
+    ]],
+    ["Seattle, WA", "USA", 47.6062, -122.3321, [
+      "Divya Kiron (2001)", "Satvik Vishnubhatta (2008)"
+    ]],
+    ["South Brunswick, NJ", "USA", 40.3826, -74.5310, [
+      "Sandhya Kurella (1998)"
+    ]],
+    ["Sunnyvale, CA", "USA", 37.3688, -122.0363, [
+      "Krishna Nadiminti (2002)"
+    ]],
+
+    // United Kingdom
+    ["Glasgow", "United Kingdom", 55.8642, -4.2518, [
+      "Swarupa Vadlamani (1999)"
+    ]],
+    ["London", "United Kingdom", 51.5072, -0.1276, [
+      "Aravind Sriram (1998)"
+    ]],
 
     // Netherlands
     ["Amsterdam", "Netherlands", 52.3676, 4.9041, [
       "MVK Prasad (1992)", "Madhuri Mangalampalli (1992)"
     ]],
 
-    ["Singapore", "Singapore", 1.3521, 103.8198, ["Seshanand Ravuri (1988)"]],
-    ["Glasgow", "United Kingdom", 55.8642, -4.2518, ["Swarupa Vadlamani (1999)"]],
-    ["Montreal", "Canada", 45.5017, -73.5673, ["Lanka Preethi (2005)"]]
+    // Canada
+    ["Montreal", "Canada", 45.5017, -73.5673, [
+      "Lanka Preethi (2005)"
+    ]],
+    ["Toronto", "Canada", 43.6532, -79.3832, [
+      "Naveen Bhukta Govindu (1998)"
+    ]],
+
+    // Singapore
+    ["Singapore", "Singapore", 1.3521, 103.8198, [
+      "Seshanand Ravuri (1988)", "Vijay Bhamidipati (2001)"
+    ]],
+
+    // Japan
+    ["Tokyo", "Japan", 35.6762, 139.6503, [
+      "Malladi V. S. K. Chintamani Sai Sisir Chandrachud (2018)"
+    ]]
   ];
 
   function el(tag, className, text) {

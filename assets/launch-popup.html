@@ -65,6 +65,42 @@
   .skvm-curtain-left  { left: 0;  border-right: 3px solid #4a0a10; }
   .skvm-curtain-right { right: 0; border-left:  3px solid #4a0a10; }
 
+  /* स्वागतम् — "Swagatam / Welcome" embroidered onto each curtain half.
+     Because the letters live INSIDE the curtain panels, they inherit the
+     panels' translate/skew, so they slide away naturally with the fabric. */
+  .skvm-swagatam {
+    position: absolute;
+    top: 50%;
+    font-family: 'Noto Serif Devanagari', 'Sanskrit Text', 'Nirmala UI', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1;
+    color: #ffd700;                    /* embroidered gold */
+    letter-spacing: 2px;
+    /* metallic gold sheen so it reads as thread on velvet */
+    background:
+      linear-gradient(180deg, #fff2b3 0%, #ffd700 45%, #a06a10 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 1px 0 rgba(0,0,0,.35),
+      0 3px 8px rgba(0,0,0,.55);
+    filter: drop-shadow(0 0 6px rgba(255,215,0,.4));
+    pointer-events: none;
+    user-select: none;
+  }
+  /* Position each half slightly inside from the parting edge so the pair
+     reads as one word before the curtains open.
+     Vertically sit ~20px below the "Click to Open" knob label (knob is
+     viewport-centered; its label sits roughly 45px below center, so we
+     offset the letters by ~65px from center). */
+  .skvm-swagatam        { top: calc(40% + 65px); letter-spacing: 0; }
+  /* Hug the parting edge so "स्वा" and "गतम्" read as one continuous word */
+  .skvm-swagatam--left  { right: 48px; transform: translateY(0); padding-right: 0; }
+  .skvm-swagatam--right { left:  -6px; transform: translateY(0); padding-left: 0; }
+
+
   /* Gold valance (top border with scalloped bunting look) */
   .skvm-curtain-valance {
     position: absolute; top: 0; left: 0; right: 0;
@@ -122,7 +158,7 @@
   /* ----- Curtain pull-knob (bell + rope) ----- */
   .skvm-curtain-knob {
     position: fixed;
-    top: 50%; left: 50%;
+    top: 30%; left: 50%;
     transform: translate(-50%, -50%);
     width: 60px;
     display: flex;
@@ -993,8 +1029,12 @@
     <!-- Curtain raiser — two velvet panels part to reveal the popup when the knob is pulled -->
     <div class="skvm-curtain" id="skvmCurtain" aria-hidden="true">
       <div class="skvm-curtain-valance"></div>
-      <div class="skvm-curtain-panel skvm-curtain-left"></div>
-      <div class="skvm-curtain-panel skvm-curtain-right"></div>
+      <div class="skvm-curtain-panel skvm-curtain-left">
+        <span class="skvm-swagatam skvm-swagatam--left" aria-hidden="true">स्वा</span>
+      </div>
+      <div class="skvm-curtain-panel skvm-curtain-right">
+        <span class="skvm-swagatam skvm-swagatam--right" aria-hidden="true">गतम्</span>
+      </div>
       <div class="skvm-curtain-tie skvm-curtain-tie-left"></div>
       <div class="skvm-curtain-tie skvm-curtain-tie-right"></div>
       <button type="button" class="skvm-curtain-knob" id="skvmCurtainKnob" aria-label="Click to open the curtains">
@@ -1450,11 +1490,8 @@
       });
     }
 
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && overlay.classList.contains('show')) closePopup();
-    });
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) closePopup();
-    });
+    // Only the ✕ button closes the popup — Esc key and backdrop clicks are
+    // intentionally ignored so a stray click outside the card doesn't dismiss
+    // the launch experience.
   })();
 </script>
