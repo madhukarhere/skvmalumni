@@ -421,6 +421,207 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.3);
   }
   .skvm-meta-trio .skvm-meta-icon { width: 40px; height: 40px; font-size: 20px; margin-top: 4px; }
+
+  /* Distinct CSS-drawn flowers for each of the three guests */
+  .skvm-flower {
+    position: relative;
+    width: 42px; height: 42px;
+    margin: 6px 0 2px;
+    display: inline-block;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,.25));
+    animation: skvm-flower-sway 4s ease-in-out infinite;
+    transform-origin: 50% 60%;
+  }
+  .skvm-offer {
+    padding: 0; border: 0;
+    background: transparent !important;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: filter .2s ease;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    overflow: visible;
+  }
+  .skvm-offer:hover { filter: drop-shadow(0 3px 5px rgba(0,0,0,.3)) brightness(1.08); }
+  .skvm-offer:focus-visible { outline: 2px dashed #b8860b; outline-offset: 6px; border-radius: 50%; }
+  .skvm-offer.is-offered {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(.6);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  /* Flying flower clone — drifts down like a real petal, fully transparent card */
+  .skvm-flying {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10004;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    overflow: visible;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,.22));
+    /* per-clone sway amplitude & rotation direction can be tuned with these vars */
+    --sway: 14px;
+    --spin: 220deg;
+    animation: skvm-flower-fall 3.2s cubic-bezier(.33,.05,.66,1) forwards;
+    will-change: transform, opacity;
+  }
+  .skvm-flying::before { content: none; }
+
+  /* Petals streaming in from every direction toward Kṛṣṇa's feet */
+  .skvm-offer-petal {
+    position: fixed;
+    top: 0; left: 0;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 10004;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,.25));
+    animation: skvm-offer-fall cubic-bezier(.3,.05,.55,1) forwards;
+    will-change: transform, opacity;
+    --tx: 0px;
+    --ty: 0px;
+    --spin: 540deg;
+  }
+  @keyframes skvm-offer-fall {
+    0%   { transform: translate(0, 0)                                 rotate(0deg)                    scale(1);   opacity: 0; }
+    10%  {                                                                                                         opacity: 1; }
+    75%  { transform: translate(calc(var(--tx) * .82), calc(var(--ty) * .82)) rotate(calc(var(--spin) * .72)) scale(.85); opacity: 1; }
+    95%  { transform: translate(var(--tx), var(--ty))                 rotate(var(--spin))              scale(.65); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty))                 rotate(var(--spin))              scale(.55); opacity: 1; }
+  }
+  /* Petals that have accumulated at the feet — settled, gently glowing */
+  .skvm-offer-petal.is-settled {
+    animation: none;
+    transition: opacity .6s ease;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)) drop-shadow(0 0 4px rgba(255,215,0,.5));
+  }
+  .skvm-offer-petal.is-fading { opacity: 0; }
+
+  /* Ripple that blooms out from the feet when the flower touches down */
+  .skvm-touch-ripple {
+    position: fixed;
+    pointer-events: none;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,215,0,.85);
+    z-index: 10003;
+    animation: skvm-touch-ripple 900ms ease-out forwards;
+  }
+  /* Natural falling motion: constant descent + softer, decaying sway */
+  @keyframes skvm-flower-fall {
+    0%   { transform: translate(0,                              0)                              rotate(0deg)                    scale(1);   }
+    12%  { transform: translate(calc(var(--tx) * .12 + var(--sway) * .8),  calc(var(--ty) * .12)) rotate(calc(var(--spin) *  .08)) scale(.97); }
+    28%  { transform: translate(calc(var(--tx) * .28 - var(--sway)),        calc(var(--ty) * .28)) rotate(calc(var(--spin) *  .22)) scale(.92); }
+    45%  { transform: translate(calc(var(--tx) * .45 + var(--sway) * .8),  calc(var(--ty) * .45)) rotate(calc(var(--spin) *  .40)) scale(.85); }
+    62%  { transform: translate(calc(var(--tx) * .62 - var(--sway) * .6),  calc(var(--ty) * .62)) rotate(calc(var(--spin) *  .58)) scale(.77); }
+    78%  { transform: translate(calc(var(--tx) * .78 + var(--sway) * .4),  calc(var(--ty) * .78)) rotate(calc(var(--spin) *  .74)) scale(.68); }
+    90%  { transform: translate(calc(var(--tx) * .92 - var(--sway) * .2),  calc(var(--ty) * .92)) rotate(calc(var(--spin) *  .88)) scale(.58); }
+    100% { transform: translate(var(--tx),                                  var(--ty))              rotate(var(--spin))              scale(.5);  }
+  }
+  @keyframes skvm-touch-ripple {
+    0%   { transform: translate(-50%, -50%) scale(.4); opacity: .9; border-width: 3px; }
+    70%  { opacity: .5; border-width: 1.5px; }
+    100% { transform: translate(-50%, -50%) scale(4);  opacity: 0;  border-width: 1px; }
+  }
+
+  /* Offerings piled beneath the feet */
+  .skvm-offerings {
+    position: absolute;
+    left: 50%; bottom: -18px;
+    transform: translateX(-50%);
+    display: flex; align-items: center; justify-content: center; gap: 4px;
+    pointer-events: none;
+  }
+  .skvm-offerings .skvm-flower {
+    width: 22px; height: 22px;
+    margin: 0;
+    animation: skvm-offering-glow 2.4s ease-in-out infinite;
+  }
+  .skvm-offerings .skvm-flower__petal {
+    width: 7px; height: 10px;
+    border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+  }
+  .skvm-offerings .skvm-flower--lotus .skvm-flower__petal { width: 5px; height: 11px; }
+  .skvm-offerings .skvm-flower--rose  .skvm-flower__petal { width: 8px; height: 9px;  }
+  .skvm-offerings .skvm-flower__center { width: 6px; height: 6px; }
+  @keyframes skvm-offering-glow {
+    0%, 100% { filter: drop-shadow(0 0 2px rgba(255,215,0,.4)); transform: scale(1); }
+    50%      { filter: drop-shadow(0 0 6px rgba(255,215,0,.9)); transform: scale(1.06); }
+  }
+  .skvm-flower__petal {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 14px; height: 20px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform-origin: 50% 100%;
+    box-shadow: inset -1px -2px 4px rgba(0,0,0,.15), inset 1px 1px 2px rgba(255,255,255,.5);
+  }
+  .skvm-flower__center {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,.3), inset 0 1px 2px rgba(255,255,255,.6);
+    z-index: 2;
+  }
+
+  /* Marigold — orange, 6 petals, for the Chief Guest */
+  .skvm-flower--marigold .skvm-flower__petal {
+    background: radial-gradient(circle at 50% 30%, #ffcf60 0%, #ff8a00 55%, #c65100 100%);
+  }
+  .skvm-flower--marigold .skvm-flower__center {
+    background: radial-gradient(circle at 40% 35%, #ffd54f, #a05300);
+  }
+  .skvm-flower--marigold .skvm-flower__petal:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg);   }
+  .skvm-flower--marigold .skvm-flower__petal:nth-child(2) { transform: translate(-50%, -100%) rotate(60deg);  }
+  .skvm-flower--marigold .skvm-flower__petal:nth-child(3) { transform: translate(-50%, -100%) rotate(120deg); }
+  .skvm-flower--marigold .skvm-flower__petal:nth-child(4) { transform: translate(-50%, -100%) rotate(180deg); }
+  .skvm-flower--marigold .skvm-flower__petal:nth-child(5) { transform: translate(-50%, -100%) rotate(240deg); }
+  .skvm-flower--marigold .skvm-flower__petal:nth-child(6) { transform: translate(-50%, -100%) rotate(300deg); }
+
+  /* Lotus — pink, 8 slender petals, for the Guest of Honour */
+  .skvm-flower--lotus { animation-duration: 4.8s; }
+  .skvm-flower--lotus .skvm-flower__petal {
+    width: 10px; height: 22px;
+    border-radius: 50% 50% 40% 40% / 65% 65% 35% 35%;
+    background: radial-gradient(circle at 50% 25%, #ffffff 0%, #f8bbd0 55%, #d13a75 100%);
+  }
+  .skvm-flower--lotus .skvm-flower__center {
+    background: radial-gradient(circle at 40% 35%, #fff7c0, #d4a017);
+  }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg);   }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(2) { transform: translate(-50%, -100%) rotate(45deg);  }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(3) { transform: translate(-50%, -100%) rotate(90deg);  }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(4) { transform: translate(-50%, -100%) rotate(135deg); }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(5) { transform: translate(-50%, -100%) rotate(180deg); }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(6) { transform: translate(-50%, -100%) rotate(225deg); }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(7) { transform: translate(-50%, -100%) rotate(270deg); }
+  .skvm-flower--lotus .skvm-flower__petal:nth-child(8) { transform: translate(-50%, -100%) rotate(315deg); }
+
+  /* Rose — deep red, 5 rounded petals, for the Distinguished Guest */
+  .skvm-flower--rose { animation-duration: 5.4s; }
+  .skvm-flower--rose .skvm-flower__petal {
+    width: 16px; height: 18px;
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at 45% 30%, #ff7a7a 0%, #d32f2f 55%, #7a0f0f 100%);
+  }
+  .skvm-flower--rose .skvm-flower__center {
+    background: radial-gradient(circle at 40% 35%, #ffcc80, #8a3d00);
+  }
+  .skvm-flower--rose .skvm-flower__petal:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg);   }
+  .skvm-flower--rose .skvm-flower__petal:nth-child(2) { transform: translate(-50%, -100%) rotate(72deg);  }
+  .skvm-flower--rose .skvm-flower__petal:nth-child(3) { transform: translate(-50%, -100%) rotate(144deg); }
+  .skvm-flower--rose .skvm-flower__petal:nth-child(4) { transform: translate(-50%, -100%) rotate(216deg); }
+  .skvm-flower--rose .skvm-flower__petal:nth-child(5) { transform: translate(-50%, -100%) rotate(288deg); }
+
+  @keyframes skvm-flower-sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50%      { transform: rotate( 4deg); }
+  }
   .skvm-meta-trio .skvm-meta-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .skvm-meta-trio .skvm-meta-label {
     font-size: 10px; letter-spacing: 2px; color: #8a6a2a;
@@ -475,23 +676,29 @@
   /* Slide-to-launch */
   .skvm-slide {
     position: relative;
-    width: 100%; max-width: 420px;
-    height: 72px;
-    margin: 4px auto 4px;
-    padding-top: 18px; /* room for the hint text above the flute */
+    width: 100%; max-width: 460px;
+    height: 110px;
+    margin: 6px auto 12px;
+    padding-top: 20px; /* room for the hint text above the feet */
     user-select: none;
-    touch-action: none;
-    padding-right: 55px; /* room for Lord Kṛṣṇa's feet */
     box-sizing: border-box;
   }
   .skvm-slide-feet {
-    position: absolute; right: -20px; top: 50%;
-    transform: translateY(-50%);
-    width: 55px; height: 55px;
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px; height: 90px;
     display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-    z-index: 1;
-    animation: skvm-feet-idle 2.6s ease-in-out infinite;
+    padding: 0; border: 0; background: transparent;
+    cursor: pointer;
+    z-index: 3;
+    font-family: inherit;
+    transition: transform 0.15s ease;
+  }
+  .skvm-slide-feet:hover { transform: translate(-50%, -50%) scale(1.06); }
+  .skvm-slide-feet:focus-visible {
+    outline: 2px dashed #ffd700;
+    outline-offset: 6px;
+    border-radius: 50%;
   }
   .skvm-feet-img {
     width: 100%; height: 100%; object-fit: contain;
@@ -571,29 +778,196 @@
     0%, 100% { transform: translateY(-50%) scale(1.2); filter: drop-shadow(0 0 14px rgba(255,215,0,.8)); }
     50%      { transform: translateY(-50%) scale(1.45); filter: drop-shadow(0 0 34px rgba(255,215,0,1)); }
   }
+  /* Yamunā pond — a rounded water body sunk into a grassy bank */
   .skvm-slide-flute {
     position: absolute; top: 50%; left: 0; right: 0;
     transform: translateY(-50%);
-    height: 22px;
+    height: 72px;
+    border-radius: 120px / 60px;
     background:
-      linear-gradient(180deg, #d4a840 0%, #b8860b 45%, #8a5a08 100%);
-    border-radius: 12px;
+      /* wavy water surface — animated SVG waves */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'>\
+<path d='M0,20 Q25,10 50,20 T100,20 T150,20 T200,20' fill='none' stroke='rgba(255,255,255,0.55)' stroke-width='1.2'/>\
+<path d='M0,32 Q25,24 50,32 T100,32 T150,32 T200,32' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='1'/>\
+<path d='M0,44 Q25,36 50,44 T100,44 T150,44 T200,44' fill='none' stroke='rgba(255,255,255,0.45)' stroke-width='1'/>\
+</svg>"),
+      /* depth: dark centre, lighter shallows */
+      radial-gradient(ellipse at 50% 55%, #08325a 0%, #145b8f 40%, #3d95c4 75%, #a4dcf1 100%);
+    background-size: 120px 60px, 100% 100%;
+    background-repeat: repeat-x, no-repeat;
     box-shadow:
-      inset 0 2px 3px rgba(255,255,255,.35),
-      inset 0 -2px 3px rgba(0,0,0,.35),
-      0 3px 8px rgba(0,0,0,.3);
+      /* grass on the pond bank */
+      0 0 0 4px #6ea23a,
+      0 0 0 7px #4e7b26,
+      0 0 0 10px #3a5a1a,
+      /* subtle earth ring */
+      0 0 0 12px #6b4a23,
+      /* soft outer shadow into the popup */
+      0 8px 18px rgba(0,0,0,.35),
+      /* inner shading for water depth */
+      inset 0 5px 10px rgba(255,255,255,.35),
+      inset 0 -10px 18px rgba(0,0,0,.55);
+    overflow: hidden;
+    animation: skvm-wave-drift 5s linear infinite;
   }
-  .skvm-slide-flute::before, .skvm-slide-flute::after {
-    content: ""; position: absolute; top: 0; width: 10px; height: 22px;
-    background: #6b4a12; border-radius: 4px;
+  @keyframes skvm-wave-drift {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 120px 0, 0 0; }
   }
-  .skvm-slide-flute::before { left: -6px; }
-  .skvm-slide-flute::after  { right: -6px; }
+
+  /* Lily pads and sparkles on the surface */
+  .skvm-slide-flute::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      /* lily pads (green, oval) */
+      radial-gradient(ellipse 22px 10px at 16% 32%, #2e7a3a 0 88%, transparent 90%),
+      radial-gradient(ellipse 18px 8px  at 82% 68%, #2e7a3a 0 88%, transparent 90%),
+      radial-gradient(ellipse 14px 7px  at 62% 28%, #3a8a45 0 88%, transparent 90%),
+      /* pink lily flower on the largest pad */
+      radial-gradient(circle 4px at 16% 30%, #f48fb1 0 90%, transparent 92%),
+      /* white sparkles */
+      radial-gradient(circle at 10% 60%, rgba(255,255,255,.7) 0 2.5px, transparent 3.5px),
+      radial-gradient(circle at 34% 78%, rgba(255,255,255,.5) 0 2px,   transparent 3px),
+      radial-gradient(circle at 50% 48%, rgba(255,255,255,.7) 0 2.5px, transparent 3.5px),
+      radial-gradient(circle at 70% 72%, rgba(255,255,255,.5) 0 2px,   transparent 3px),
+      radial-gradient(circle at 90% 55%, rgba(255,255,255,.7) 0 2.5px, transparent 3.5px);
+    animation: skvm-water-shimmer 3.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Lily flowers sitting on the water */
+  .skvm-lily {
+    position: absolute;
+    font-size: 14px;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.4));
+    pointer-events: none;
+    animation: skvm-lily-bob 4s ease-in-out infinite;
+  }
+  .skvm-lily--pink  {
+    color: #f48fb1; text-shadow: 0 0 3px #fff, 0 0 6px #ffd6e5;
+    animation-name: skvm-lily-drift-a;
+    animation-duration: 7s;
+  }
+  .skvm-lily--white {
+    color: #ffffff; text-shadow: 0 0 3px #ffe6b3, 0 0 6px #fff; font-size: 12px;
+    animation-name: skvm-lily-drift-b;
+    animation-duration: 9s;
+    animation-delay: -2s;
+  }
+  .skvm-lily--peach {
+    color: #ffb37a; text-shadow: 0 0 3px #fff2c8, 0 0 6px #ffd8a0; font-size: 12px;
+    animation-name: skvm-lily-drift-c;
+    animation-duration: 8.5s;
+    animation-delay: -4s;
+  }
+  @keyframes skvm-lily-drift-a {
+    0%   { transform: translate(-50%, -50%) rotate(-8deg); }
+    25%  { transform: translate(-42%, -58%) rotate( 6deg); }
+    50%  { transform: translate(-58%, -44%) rotate(-4deg); }
+    75%  { transform: translate(-48%, -52%) rotate( 9deg); }
+    100% { transform: translate(-50%, -50%) rotate(-8deg); }
+  }
+  @keyframes skvm-lily-drift-b {
+    0%   { transform: translate(-50%, -50%) rotate( 5deg); }
+    30%  { transform: translate(-60%, -46%) rotate(-6deg); }
+    60%  { transform: translate(-44%, -58%) rotate( 8deg); }
+    100% { transform: translate(-50%, -50%) rotate( 5deg); }
+  }
+  @keyframes skvm-lily-drift-c {
+    0%   { transform: translate(-50%, -50%) rotate(-4deg); }
+    20%  { transform: translate(-56%, -44%) rotate( 9deg); }
+    45%  { transform: translate(-40%, -54%) rotate(-7deg); }
+    70%  { transform: translate(-52%, -48%) rotate( 3deg); }
+    100% { transform: translate(-50%, -50%) rotate(-4deg); }
+  }
+
+  /* Fish swimming across the pond */
+  .skvm-fish {
+    position: absolute;
+    font-size: 14px;
+    line-height: 1;
+    top: 55%;
+    left: 0;
+    transform: translateY(-50%);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.4));
+    pointer-events: none;
+    animation: skvm-fish-swim 9s linear infinite;
+  }
+  .skvm-fish--gold {
+    top: 40%;
+    animation-duration: 11s;
+    animation-delay: -3s;
+  }
+  .skvm-fish--orange {
+    top: 68%;
+    font-size: 12px;
+    animation-duration: 8s;
+    animation-delay: -5s;
+    animation-name: skvm-fish-swim-reverse;
+  }
+  @keyframes skvm-fish-swim {
+    0%   { left: -12%; top: 30%;  transform: translateY(-50%) scaleX(1)  rotate(-4deg); }
+    12%  { left:   6%; top: 45%;  transform: translateY(-50%) scaleX(1)  rotate( 6deg); }
+    28%  { left:  22%; top: 32%;  transform: translateY(-50%) scaleX(1)  rotate(-8deg); }
+    46%  { left:  42%; top: 58%;  transform: translateY(-50%) scaleX(1)  rotate( 4deg); }
+    62%  { left:  60%; top: 38%;  transform: translateY(-50%) scaleX(1)  rotate(-6deg); }
+    80%  { left:  82%; top: 52%;  transform: translateY(-50%) scaleX(1)  rotate( 3deg); }
+    100% { left: 112%; top: 44%;  transform: translateY(-50%) scaleX(1)  rotate( 0deg); }
+  }
+  @keyframes skvm-fish-swim-reverse {
+    0%   { left: 112%; top: 60%;  transform: translateY(-50%) scaleX(-1) rotate( 5deg); }
+    18%  { left:  88%; top: 44%;  transform: translateY(-50%) scaleX(-1) rotate(-6deg); }
+    34%  { left:  68%; top: 66%;  transform: translateY(-50%) scaleX(-1) rotate( 4deg); }
+    52%  { left:  46%; top: 50%;  transform: translateY(-50%) scaleX(-1) rotate(-3deg); }
+    70%  { left:  26%; top: 62%;  transform: translateY(-50%) scaleX(-1) rotate( 7deg); }
+    88%  { left:   8%; top: 48%;  transform: translateY(-50%) scaleX(-1) rotate(-5deg); }
+    100% { left: -12%; top: 58%;  transform: translateY(-50%) scaleX(-1) rotate( 0deg); }
+  }
+
+  /* Grassy reeds poking up from the front bank */
+  .skvm-slide-flute::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+    height: 12px;
+    background:
+      radial-gradient(ellipse 2px 8px at  6% 100%, #4e7b26 0 90%, transparent 92%),
+      radial-gradient(ellipse 2px 10px at 12% 100%, #6ea23a 0 90%, transparent 92%),
+      radial-gradient(ellipse 2px 7px at 30% 100%, #4e7b26 0 90%, transparent 92%),
+      radial-gradient(ellipse 2px 10px at 46% 100%, #6ea23a 0 90%, transparent 92%),
+      radial-gradient(ellipse 2px 8px at 74% 100%, #4e7b26 0 90%, transparent 92%),
+      radial-gradient(ellipse 2px 9px at 90% 100%, #6ea23a 0 90%, transparent 92%);
+    pointer-events: none;
+  }
+  @keyframes skvm-water-flow {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 60px 0, 0 0; }
+  }
+  @keyframes skvm-water-shimmer {
+    0%, 100% { opacity: .55; }
+    50%      { opacity: 1; }
+  }
+  @keyframes skvm-water-crest {
+    from { transform: translateX(-30%); }
+    to   { transform: translateX( 30%); }
+  }
+  /* Old flute-holes become tiny air bubbles floating up */
   .skvm-slide-hole {
     position: absolute; top: 50%; transform: translate(-50%, -50%);
-    width: 6px; height: 6px; border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, #3a2410, #1a0f04);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.6);
+    width: 5px; height: 5px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff, rgba(255,255,255,.35) 60%, transparent 70%);
+    box-shadow: 0 0 3px rgba(255,255,255,.6);
+    animation: skvm-bubble 3s ease-in-out infinite;
+    opacity: .8;
+  }
+  .skvm-slide-hole:nth-child(2) { animation-delay: .3s; }
+  .skvm-slide-hole:nth-child(3) { animation-delay: .6s; }
+  .skvm-slide-hole:nth-child(4) { animation-delay: .9s; }
+  .skvm-slide-hole:nth-child(5) { animation-delay: 1.2s; }
+  .skvm-slide-hole:nth-child(6) { animation-delay: 1.5s; }
+  @keyframes skvm-bubble {
+    0%, 100% { transform: translate(-50%, -30%) scale(.8); opacity: .3; }
+    50%      { transform: translate(-50%, -80%) scale(1.1); opacity: .9; }
   }
   .skvm-slide-hint {
     position: absolute; top: 0; left: 0; right: 0;
@@ -605,6 +979,15 @@
     text-align: center;
     opacity: .9;
     transition: opacity .2s;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .skvm-slide-hint [data-role="count"] {
+    font-size: 9px; letter-spacing: 2px;
+    color: #1a237e;
+    opacity: .8;
+  }
+  .skvm-slide-hint [data-role="count"] #skvmOfferedCount {
+    color: #b8860b; font-weight: 700;
   }
   .skvm-slide.is-active .skvm-slide-hint { opacity: 0; }
   .skvm-slide-thumb {
@@ -631,6 +1014,48 @@
     z-index: -1;
     animation: skvm-thumb-halo 2.4s ease-in-out infinite;
     pointer-events: none;
+  }
+  /* Water ripples splashing on both sides of the floating lotus */
+  .skvm-slide-thumb::after {
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 20px; height: 8px;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 70%);
+    box-shadow:
+      -22px 4px 0 -1px rgba(255,255,255,.7),
+       22px 4px 0 -1px rgba(255,255,255,.7),
+      -30px -4px 0 -2px rgba(255,255,255,.5),
+       30px -4px 0 -2px rgba(255,255,255,.5);
+    transform: translate(-50%, 60%) scaleX(1);
+    animation: skvm-splash 1.6s ease-out infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+  @keyframes skvm-splash {
+    0%   { opacity: 0;   transform: translate(-50%, 40%) scaleX(.4); }
+    30%  { opacity: 1;   transform: translate(-50%, 60%) scaleX(1);  }
+    100% { opacity: 0;   transform: translate(-50%, 80%) scaleX(1.6);}
+  }
+  .skvm-slide.is-dragging .skvm-slide-thumb::after,
+  .skvm-slide.is-active   .skvm-slide-thumb::after {
+    animation-duration: .7s;
+    background:
+      radial-gradient(ellipse, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 70%);
+    box-shadow:
+      -28px 6px 0 -1px rgba(255,255,255,.95),
+       28px 6px 0 -1px rgba(255,255,255,.95),
+      -40px -4px 0 -2px rgba(255,255,255,.7),
+       40px -4px 0 -2px rgba(255,255,255,.7),
+      -52px 2px 0 -3px rgba(255,255,255,.5),
+       52px 2px 0 -3px rgba(255,255,255,.5);
+  }
+  /* Gentle bobbing on the water — replaces the wiggle */
+  @keyframes skvm-thumb-attract {
+    0%, 100% { transform: translateY(-52%) rotate(-3deg); }
+    50%      { transform: translateY(-46%) rotate( 3deg); }
   }
   .skvm-slide.is-active .skvm-slide-thumb,
   .skvm-slide.is-dragging .skvm-slide-thumb,
@@ -796,21 +1221,16 @@
       </div>
     </div>
 
-    <!-- Slide-to-launch: flower slides along a flute from left to right -->
-    <div class="skvm-slide" id="skvmSlide" role="button" tabindex="0" aria-label="Slide flower to launch">
-      <div class="skvm-slide-flute">
-        <span class="skvm-slide-hole" style="left: 20%"></span>
-        <span class="skvm-slide-hole" style="left: 32%"></span>
-        <span class="skvm-slide-hole" style="left: 44%"></span>
-        <span class="skvm-slide-hole" style="left: 56%"></span>
-        <span class="skvm-slide-hole" style="left: 68%"></span>
-        <span class="skvm-slide-hole" style="left: 80%"></span>
+    <!-- Offer each guest's flower at Kṛṣṇa's feet to launch -->
+    <div class="skvm-slide" id="skvmSlide" tabindex="0" aria-label="Offer each flower to Kṛṣṇa's feet">
+      <div class="skvm-slide-hint">
+        <span data-role="prompt">Tap each guest's flower to offer it at Kṛṣṇa's feet</span>
+        <span data-role="count"><span id="skvmOfferedCount">0</span> of 3 offered</span>
       </div>
-      <div class="skvm-slide-hint">Offer the lotus at Kṛṣṇa's feet →</div>
-      <div class="skvm-slide-thumb" id="skvmSlideThumb">🪷</div>
-      <!-- Kṛṣṇa's charaṇa (divine feet) — target of the offering -->
-      <div class="skvm-slide-feet" aria-hidden="true">
+      <!-- Kṛṣṇa's charaṇa (divine feet) — offerings gather beneath -->
+      <div class="skvm-slide-feet" id="skvmFeetBtn" aria-hidden="true">
         <img src="assets/krishna-feet.png" alt="" class="skvm-feet-img">
+        <div class="skvm-offerings" id="skvmOfferings" aria-hidden="true"></div>
       </div>
       <!-- SVG fallback kept for reference (hidden) -->
       <div hidden>
@@ -933,7 +1353,15 @@
       <div class="skvm-meta-row skvm-meta-trio">
         <div class="skvm-meta-cell skvm-guest">
           <span class="skvm-guest__badge">Mukhya Atithi</span>
-          <div class="skvm-meta-icon">🙏</div>
+          <button type="button" class="skvm-flower skvm-flower--marigold skvm-offer" data-guest="1" aria-label="Offer this flower at Kṛṣṇa's feet">
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__center"></span>
+          </button>
           <div class="skvm-meta-body">
             <div class="skvm-meta-label">Chief Guest</div>
             <div class="skvm-meta-value">Sri P. V. N. Madhav garu
@@ -943,7 +1371,17 @@
         </div>
         <div class="skvm-meta-cell skvm-guest">
           <span class="skvm-guest__badge">Śreṣṭha Atithi</span>
-          <div class="skvm-meta-icon">🪷</div>
+          <button type="button" class="skvm-flower skvm-flower--lotus skvm-offer" data-guest="2" aria-label="Offer this flower at Kṛṣṇa's feet">
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__center"></span>
+          </button>
           <div class="skvm-meta-body">
             <div class="skvm-meta-label">Guest of Honour</div>
             <div class="skvm-meta-value">Prof. Nageswara Rao garu
@@ -953,7 +1391,14 @@
         </div>
         <div class="skvm-meta-cell skvm-guest">
           <span class="skvm-guest__badge">Viśiṣṭa Atithi</span>
-          <div class="skvm-meta-icon">🌸</div>
+          <button type="button" class="skvm-flower skvm-flower--rose skvm-offer" data-guest="3" aria-label="Offer this flower at Kṛṣṇa's feet">
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__petal"></span>
+            <span class="skvm-flower__center"></span>
+          </button>
           <div class="skvm-meta-body">
             <div class="skvm-meta-label">Distinguished Guest</div>
             <div class="skvm-meta-value">Sri Pusapati Venkatapathi Raju garu
@@ -1015,6 +1460,7 @@
     function closePopup() {
       overlay.classList.remove('show');
       stopAudio();
+      if (typeof window.__skvmClearPetals === 'function') window.__skvmClearPetals();
     }
 
     var alreadySeen = false;
@@ -1117,75 +1563,124 @@
         startAudio();
         showerFlowers(SHOWER_MS);
         setTimeout(stopAudio, SHOWER_MS);
+        if (typeof window.__skvmClearPetals === 'function') window.__skvmClearPetals();
       }, CLOSE_MS);
     }
 
-    // Slide-to-launch: drag flower along flute; releasing near the right end fires launch.
-    var slide = document.getElementById('skvmSlide');
-    var thumb = document.getElementById('skvmSlideThumb');
-    if (slide && thumb) {
-      var dragging = false, startX = 0, thumbStart = 0, maxX = 0, launched = false;
+    // Offer each guest's flower — a burst of petals falls from the top toward the feet.
+    // When all three guests have been offered, the launch sequence fires.
+    var slide      = document.getElementById('skvmSlide');
+    var feetBtn    = document.getElementById('skvmFeetBtn');
+    var countEl    = document.getElementById('skvmOfferedCount');
+    var offers     = document.querySelectorAll('.skvm-offer');
+    if (slide && feetBtn && offers.length) {
+      var launched = 0, offered = 0, TOTAL = offers.length;
+      var PETALS_PER_OFFERING = ['🌸','🌺','🪷','🌼','🏵️','🌷','💐','❁'];
 
-      function measure() { maxX = slide.clientWidth - thumb.offsetWidth; }
-      function setX(x) {
-        x = Math.max(0, Math.min(maxX, x));
-        thumb.style.left = x + 'px';
-        // near the feet? — trigger the "excited" animation
-        if (x >= maxX - Math.max(30, maxX * 0.15)) slide.classList.add('is-near');
-        else slide.classList.remove('is-near');
-        return x;
+      function petalGlyphForGuest(guestId) {
+        if (guestId === '1') return ['🏵️','🌼','🌸'];          // marigold-ish
+        if (guestId === '2') return ['🪷','🌸','❁'];            // lotus
+        if (guestId === '3') return ['🌹','🌺','🌷'];           // rose
+        return PETALS_PER_OFFERING;
       }
-      function start(clientX) {
-        if (launched) return;
-        measure();
-        dragging = true;
-        thumb.classList.remove('snapback');
-        slide.classList.add('is-dragging', 'is-active');
-        startX = clientX;
-        thumbStart = parseFloat(thumb.style.left || 0);
-      }
-      function move(clientX) {
-        if (!dragging) return;
-        setX(thumbStart + (clientX - startX));
-      }
-      function end() {
-        if (!dragging) return;
-        dragging = false;
-        slide.classList.remove('is-dragging');
-        var cur = parseFloat(thumb.style.left || 0);
-        if (cur >= maxX - 6) {
-          // reached the end — launch
-          launched = true;
-          setX(maxX);
-          slide.classList.add('is-launched');
-          setTimeout(triggerLaunch, 300);
-        } else {
-          // snap back
-          thumb.classList.add('snapback');
-          setX(0);
-          slide.classList.remove('is-active', 'is-near');
+
+      function showerToFeet(guestId) {
+        var glyphs = petalGlyphForGuest(guestId);
+        var count = 6 + Math.floor(Math.random() * 5); // 6..10 petals per offering
+
+        var feet = feetBtn.getBoundingClientRect();
+        var feetX = feet.left + feet.width / 2;
+        var feetY = feet.top  + feet.height * 0.9;
+
+        for (var i = 0; i < count; i++) {
+          spawnPetal(glyphs, feetX, feetY, i * 100); // stagger each petal by ~100ms
         }
       }
 
-      thumb.addEventListener('pointerdown', function (e) {
-        thumb.setPointerCapture(e.pointerId);
-        start(e.clientX);
-      });
-      thumb.addEventListener('pointermove', function (e) { move(e.clientX); });
-      thumb.addEventListener('pointerup',   function () { end(); });
-      thumb.addEventListener('pointercancel', function () { end(); });
+      // Pick a random spawn point on one of the four viewport edges
+      function pickEdgePoint() {
+        var vw = window.innerWidth, vh = window.innerHeight;
+        var pad = 40;
+        var side = Math.floor(Math.random() * 4); // 0 top, 1 right, 2 bottom, 3 left
+        if (side === 0) return { x: Math.random() * vw,          y: -pad };
+        if (side === 1) return { x: vw + pad,                    y: Math.random() * vh };
+        if (side === 2) return { x: Math.random() * vw,          y: vh + pad };
+        return                { x: -pad,                         y: Math.random() * vh };
+      }
 
-      // Keyboard accessibility: Enter/Space to launch straight away
-      slide.addEventListener('keydown', function (e) {
-        if (launched) return;
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          measure();
-          launched = true;
-          setX(maxX);
+      // Petals that have already landed at Kṛṣṇa's feet — kept so they can be cleared on close
+      var petalPile = [];
+      window.__skvmClearPetals = function () {
+        petalPile.forEach(function (el) {
+          el.classList.add('is-fading');
+          setTimeout(function () { el.remove(); }, 650);
+        });
+        petalPile = [];
+      };
+
+      function spawnPetal(glyphs, feetX, feetY, delayMs) {
+        var petal = document.createElement('span');
+        petal.className = 'skvm-offer-petal';
+        petal.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+
+        var start = pickEdgePoint();
+        petal.style.left = start.x + 'px';
+        petal.style.top  = start.y + 'px';
+        petal.style.fontSize = (18 + Math.random() * 18) + 'px';
+
+        // Aim at the feet with a small settle offset so petals don't perfectly stack
+        var jitterX = (Math.random() - 0.5) * 60;
+        var jitterY = (Math.random() - 0.5) * 30;
+        var dx = (feetX - start.x) + jitterX;
+        var dy = (feetY - start.y) + jitterY;
+        var spinDir = Math.random() < .5 ? -1 : 1;
+        var spin = spinDir * (360 + Math.random() * 480); // 360..840°
+
+        petal.style.setProperty('--tx',   dx   + 'px');
+        petal.style.setProperty('--ty',   dy   + 'px');
+        petal.style.setProperty('--spin', spin + 'deg');
+
+        var duration = (1.9 + Math.random() * 1.2); // 1.9..3.1s toward the feet
+        petal.style.animationDelay    = delayMs + 'ms';
+        petal.style.animationDuration = duration + 's';
+
+        document.body.appendChild(petal);
+        petalPile.push(petal);
+
+        // When the arrival animation ends, freeze the petal at the feet.
+        var settleAt = delayMs + duration * 1000 + 20;
+        setTimeout(function () {
+          // Bake the final transform in so removing the animation keeps it in place.
+          petal.style.transform = 'translate(' + dx + 'px, ' + dy + 'px) rotate(' + spin + 'deg) scale(.55)';
+          petal.style.opacity = '1';
+          petal.classList.add('is-settled');
+        }, settleAt);
+      }
+
+      function offerFlower(flower) {
+        if (flower.classList.contains('is-offered') || launched) return;
+
+        // Make the guest's flower vanish immediately
+        flower.classList.add('is-offered');
+        offered++;
+        if (countEl) countEl.textContent = offered;
+
+        // Rain 5..10 petals from the top down to Kṛṣṇa's feet
+        showerToFeet(flower.getAttribute('data-guest'));
+
+        if (offered >= TOTAL && !launched) {
+          launched = 1;
           slide.classList.add('is-launched', 'is-active');
-          setTimeout(triggerLaunch, 300);
+          // wait for the last petal shower to finish flowing before the launch
+          setTimeout(triggerLaunch, 3000);
         }
+      }
+
+      offers.forEach(function (f) {
+        f.addEventListener('click', function () { offerFlower(f); });
+        f.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); offerFlower(f); }
+        });
       });
     }
 
